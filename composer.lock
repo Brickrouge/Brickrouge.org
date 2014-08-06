@@ -1,0 +1,261 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "ad109fca8293d11b792145415e2b7cfe",
+    "content-hash": "d4fe4d95ea98998a498ba1430b46bbf7",
+    "packages": [
+        {
+            "name": "brickrouge/brickrouge",
+            "version": "2.1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Brickrouge/Brickrouge.git",
+                "reference": "1fbfc4da2aeb4d9912f797060eb99afc1c121a20"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Brickrouge/Brickrouge/zipball/1fbfc4da2aeb4d9912f797060eb99afc1c121a20",
+                "reference": "1fbfc4da2aeb4d9912f797060eb99afc1c121a20",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/common": "^1.2.2",
+                "icanboogie/errors": "^1.0.0",
+                "icanboogie/prototype": ">=2.2.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "olvlvl/filecache": "dev-master"
+            },
+            "type": "library",
+            "extra": {
+                "icanboogie": {
+                    "locale-path": "locale"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Brickrouge\\": "lib/"
+                },
+                "files": [
+                    "bootstrap.php",
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A toolkit to create HTML elements",
+            "homepage": "http://brickrouge.org/",
+            "keywords": [
+                "bootstrap",
+                "element",
+                "form",
+                "html",
+                "widget"
+            ],
+            "time": "2015-12-28 17:23:22"
+        },
+        {
+            "name": "icanboogie/accessor",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/Accessor.git",
+                "reference": "96b5511180f46481add11a2b447d17e38bdb55a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/Accessor/zipball/96b5511180f46481add11a2b447d17e38bdb55a1",
+                "reference": "96b5511180f46481add11a2b447d17e38bdb55a1",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/common": ">=1.2",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\Accessor\\": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Implements getters/setters, read-only/write-only properties, volatile defaults, type control…",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "facade",
+                "getter",
+                "setter"
+            ],
+            "time": "2015-08-24 20:23:06"
+        },
+        {
+            "name": "icanboogie/common",
+            "version": "v1.2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/Common.git",
+                "reference": "ec90b2d854a49882c814c84f67ed54bbb566aac0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/Common/zipball/ec90b2d854a49882c814c84f67ed54bbb566aac0",
+                "reference": "ec90b2d854a49882c814c84f67ed54bbb566aac0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/"
+                ],
+                "files": [
+                    "bootstrap.php",
+                    "lib/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Common helpers and classes for ICanBoogie",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "toolkit"
+            ],
+            "time": "2014-10-21 12:06:36"
+        },
+        {
+            "name": "icanboogie/errors",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/Errors.git",
+                "reference": "7ec3a2cb6199b239939bd6ccd294b637346cc6f9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/Errors/zipball/7ec3a2cb6199b239939bd6ccd294b637346cc6f9",
+                "reference": "7ec3a2cb6199b239939bd6ccd294b637346cc6f9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An error collector",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "errors"
+            ],
+            "time": "2015-08-29 01:23:38"
+        },
+        {
+            "name": "icanboogie/prototype",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/Prototype.git",
+                "reference": "fc8e3fc329e9a99114f17e676523924c83aebddd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/Prototype/zipball/fc8e3fc329e9a99114f17e676523924c83aebddd",
+                "reference": "fc8e3fc329e9a99114f17e676523924c83aebddd",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/accessor": "^1.0.1",
+                "icanboogie/common": "^1.2.2",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\": "lib",
+                    "ICanBoogie\\Prototype\\": "lib/Prototype"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Implements the Prototype design pattern; getters/setters",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "facade",
+                "getter",
+                "prototype",
+                "setter"
+            ],
+            "time": "2015-12-26 18:24:51"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

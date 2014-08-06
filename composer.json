@@ -1,0 +1,6 @@
+{
+	"minimum-stability": "dev",
+	"require": {
+		"brickrouge/brickrouge": "^2.1"
+	}
+}
