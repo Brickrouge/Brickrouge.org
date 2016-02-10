@@ -2,33 +2,45 @@
 
 namespace Brickrouge;
 
-echo new Group(array(
+echo new Group([
 
 	Element::LEGEND => "What's your name ?",
-	Element::CHILDREN => array
-	(
-		'lastname' => new Text(array(
+	Element::CHILDREN => [
 
-			Form::LABEL => 'Lastname',
-			Element::WEIGHT => '1',
+		'lastname' => new Text([
+
+			Group::LABEL => "Last name",
+			Element::WEIGHT => 1,
 			'type' => 'text',
-			'value' => 'Laviale'
-		)),
+			'value' => "Laviale"
 
-		'firstname' => new Text(array(
+		]),
 
-			Form::LABEL => 'Firstname',
+		'firstname' => new Text([
+
+			Group::LABEL => "First name",
 			'type' => 'text',
-			'value' => 'Olivier'
-		)),
+			'value' => "Olivier"
 
-		'salutation' => new Salutation(array(
+		]),
 
-			Element::WEIGHT => 'firstname:before',
+		'salutation' => new Element(Element::TYPE_RADIO_GROUP, [
+
+			Group::LABEL => "Salutation",
+			Element::WEIGHT => Element::WEIGHT_BEFORE_PREFIX . 'firstname',
+			Element::OPTIONS => [
+
+				1 => "Misses",
+				2 => "Mister"
+
+			],
+
+			'class' => 'inline-inputs',
 			'value' => 2
-		))
-	),
 
-	'class' => 'form-horizontal'
-));
+		])
+
+	]
+
+]);
 

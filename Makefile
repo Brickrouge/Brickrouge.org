@@ -1,3 +1,6 @@
+ICANBOOGIE_INSTANCE = dev
+SERVER_PORT = 8101
+
 vendor:
 	@composer install
 
@@ -10,15 +13,18 @@ autoload: vendor
 test: vendor
 	@phpunit
 
+server:
+	@cd web && \
+	ICANBOOGIE_INSTANCE=$(ICANBOOGIE_INSTANCE) php -S localhost:$(SERVER_PORT) index.php
+
 doc:
-	apigen \
-	--source vendor/ \
+	@mkdir -p docs
+	@apigen generate \
+	--source vendor/brickrouge/brickrouge/lib \
 	--destination docs/ \
-	--title Brickrouge \
-	--exclude "*/build/*" \
-	--exclude "*/composer/*" \
-	--template-config /usr/share/php/data/ApiGen/templates/bootstrap/config.neon \
-	--google-analytics "UA-8673332-4"
+	--title "Brickrouge" \
+	--google-analytics "UA-8673332-4" \
+	--template-theme "bootstrap"
 
 reset: cache-clear
 	@rm -Rf ./vendor

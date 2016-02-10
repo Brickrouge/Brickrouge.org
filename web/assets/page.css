@@ -1,0 +1,259 @@
+/*
+ * additions from bootstrap
+ */
+
+.well {
+	background-color: #F5F5F5;
+	border: 1px solid rgba(0, 0, 0, 0.05);
+	border-radius: .25rem;
+	padding: calc(1rem - 1px);
+	margin-bottom: 1rem;
+}
+
+.bg-inverse {
+	background-color: #4A1010;
+	border-bottom: 2px solid #3d0d0d;
+}
+
+h2 {
+	margin-top: 2rem;
+}
+
+.doc-example {
+	padding: 1.5rem;
+	position: relative;
+	margin: 1rem 0;
+	border: .2rem solid #f7f7f9;
+}
+
+.doc-example + pre {
+	border-left: 0;
+	margin-top: -1rem;
+}
+
+a {
+	color: #D04040;
+}
+
+h1 small, h2 small {
+	opacity: .8;
+	font-weight: normal;
+}
+
+h2 a {
+	color: inherit;
+	text-decoration: none;
+}
+
+hr {
+  margin: 1.33em 0;
+  border: 0;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #fff;
+}
+
+section {
+	padding-top: 60px;
+}
+
+.page-header {
+	margin: 18px 0;
+	border-bottom: 1px solid #eee;
+}
+
+.page-header h1 {
+	margin-bottom: 17px;
+	line-height: 1;
+}
+
+.page-header p {
+	font-size: 16px;
+}
+
+.small {
+	font-size: .85em;
+}
+
+div.example {
+	font-size: 13px;
+	margin: 1em 0;
+}
+
+div.example>:first-child {
+	margin-top: 0
+}
+
+div.example>:last-child {
+	margin-bottom: 0
+}
+
+pre {
+	font-size: 85%;
+	background-color: #F7F7F9;
+	border-left: 5px solid #C4C4D3;
+	margin: 1rem 0;
+	max-height: 16em;
+	padding: 1px .5rem;
+	overflow: auto;
+}
+
+pre code {
+	background: transparent !important;
+	display: block;
+}
+
+.navbar {
+	border-radius: 0;
+}
+
+.docs-input-sizes input[type="text"] {
+  display: block;
+  margin-bottom: 9px;
+}
+
+/*
+ * OVERVIEW
+ */
+
+.hero-unit {
+	position: relative;
+	color: white;
+	background: #661616;
+	text-shadow: 1px 1px #4A1010;
+	padding: 2rem 0;
+	border-bottom: 4px solid #4A1010;
+}
+
+.hero-unit h1 {
+	font-size: 6rem;
+	letter-spacing: -1px;
+	line-height: 1;
+	margin-bottom: 20px;
+	white-space: nowrap;
+}
+
+.hero-unit h1 span {
+	color: #ffe6e6;
+}
+
+.hero-unit h1 small {
+	display: inline;
+	font-size: 1rem;
+	letter-spacing: normal;
+}
+
+.hero-unit h1 small a:not(:hover),
+.hero-unit p.lead sup a:not(:hover) {
+	color: inherit;
+	text-decoration: none;
+}
+
+.hero-unit p.lead {
+	font-size: 1.6rem;
+	font-weight: 300;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.hero-unit p.lead sup {
+	vertical-align: text-top;
+	font-size: 1rem;
+}
+
+.hero-unit a:not(.btn),
+.hero-unit a:not(.btn):hover {
+	color: #D04040;
+}
+
+.hero-unit a:not(.btn):hover {
+	opacity: .8;
+}
+
+#overview .benefits {
+	font-size: 1rem;
+}
+
+#overview .benefits h4 {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+}
+
+#overview .benefits h4 span {
+	visibility: hidden;
+}
+
+#overview .benefits ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	line-height: 2em;
+}
+
+#overview .benefits span {
+	color: #999;
+}
+
+.quick-links {
+	line-height: 20px;
+	padding: 0;
+	margin: 2rem 0 0 0;
+
+}
+
+.aside-muted {
+	transition: opacity 240ms linear;
+}
+
+.aside-muted:not(:hover) {
+	opacity: .6;
+}
+
+.aside-muted:not(:hover) a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.quick-links a:not(:hover) {
+	color: inherit;
+	text-decoration: none;
+}
+
+.quick-links * {
+	vertical-align: middle;
+}
+
+.quick-links iframe {
+	float: left;
+}
+
+.quick-links li {
+	display: inline-block;
+}
+
+.quick-links li + li {
+	margin-left: 20px;
+}
+
+/*
+ * FOOTER
+ */
+
+.footer {
+	color: #555555;
+	border-top: 1px solid #E5E5E5;
+	margin-top: 45px;
+	padding: 35px 0 36px;
+}
+
+.footer p {
+	margin: 0;
+}
+
+/*
+ *
+ */
+
+#calendar-shortcuts td,
+#calendar-shortcuts th {
+	vertical-align: middle;
+}

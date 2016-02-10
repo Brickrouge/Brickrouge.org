@@ -1,0 +1,33 @@
+<?php
+
+namespace App;
+
+use Brickrouge;
+
+use function ICanBoogie\Render\render;use ICanBoogie\Render\Renderer;
+
+/**
+ * @var $content string
+ */
+
+?><!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Brickrouge, building webapps and sites</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="http://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" type="text/css" />
+	<link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github-gist.min.css" />
+	<link rel="stylesheet" href="<?= Brickrouge\Document::resolve_url(Brickrouge\ASSETS . 'brickrouge.css') ?>" type="text/css" />
+	<link rel="stylesheet" href="/assets/page.css" type="text/css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
+	<link rel="stylesheet" href="/assets/brickrouge/calendar.css" type="text/css" />
+</head>
+<body>
+
+<?= render([ Renderer::OPTION_PARTIAL => 'nav' ]) ?>
+<?= $content ?>
+<?= render([ Renderer::OPTION_PARTIAL => 'footer' ]) ?>
+
+</body>
+</html>

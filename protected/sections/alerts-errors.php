@@ -2,9 +2,23 @@
 
 namespace Brickrouge;
 
-$errors = new \ICanBoogie\Errors();
-$errors['username'] = 'Unknown username/password combination.';
-$errors['username'] = 'Funny username by the way ;-)';
-$errors[] = 'Login failed!';
+use Brickrouge\Validate\Errors;
+
+$errors = Errors::from([
+
+	'_base' => [
+
+		"Login failed!"
+
+	],
+
+	'username' => [
+
+		"Unknown username/password combination.",
+		"Funny username by the way ;-)"
+
+	]
+
+], []);
 
 echo new Alert($errors);

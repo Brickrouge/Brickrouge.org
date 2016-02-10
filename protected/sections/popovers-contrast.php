@@ -2,57 +2,48 @@
 
 namespace Brickrouge;
 
-echo new PopoverWidget
-(
-	array
-	(
-		Popover::TITLE => "Caching options",
-		Popover::INNER_HTML => new Form
-		(
-			array
-			(
-				Form::RENDERER => 'Simple',
-				Form::CHILDREN => array
-				(
-					new Text
-					(
-						array
-						(
-							Form::LABEL => 'Maximum size of the cache',
-							Text::ADDON => 'Mo',
+echo new PopoverWidget([
 
-							'class' => 'measure',
-							'size' => 4,
-							'value' => 8
-						)
-					),
+	Popover::TITLE => "Caching options",
+	Popover::INNER_HTML => new Form([
 
-					new Text
-					(
-						array
-						(
-							Form::LABEL => 'Interval between cleanup',
-							Text::ADDON => 'minutes',
+		Form::RENDERER => Form\GroupRenderer::class,
+		Form::CHILDREN => [
 
-							'class' => 'measure',
-							'size' => 4,
-							'value' => 15
-						)
-					)
-				),
+			new Text([
 
-				'class' => 'stacked'
-			)
-		),
+				Group::LABEL => 'Maximum size of the cache',
+				Text::ADDON => 'Mo',
 
-		Popover::ANCHOR => "popover-anchor-options",
-		Popover::ACTIONS => 'boolean',
-		PopoverWidget::VISIBLE => true,
+				'class' => 'measure',
+				'value' => 8
 
-		'class' => 'widget-popover popover contrast fit-content'
-	)
-);
+			]),
+
+			new Text([
+
+				Group::LABEL => 'Interval between cleanup',
+				Text::ADDON => 'Min',
+
+				'class' => 'measure',
+				'value' => 15
+
+			])
+
+		],
+
+		'class' => 'stacked'
+
+	]),
+
+	Popover::ANCHOR => "popover-anchor-options",
+	Popover::ACTIONS => 'boolean',
+	PopoverWidget::VISIBLE => true,
+
+	'class' => 'popover fit-content contrast'
+
+]);
 
 ?>
 
-<button class="spinner" id="popover-anchor-options" title="Configure caching options">The cache size is 8Mo and it's cleaned up every 15 minutes</button>
+<button class="form-control form-control-inline" id="popover-anchor-options" title="Configure caching options">The cache size is 8Mo and it's cleaned up every 15 minutes</button>

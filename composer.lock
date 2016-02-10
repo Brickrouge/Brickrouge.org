@@ -4,30 +4,31 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ad109fca8293d11b792145415e2b7cfe",
-    "content-hash": "d4fe4d95ea98998a498ba1430b46bbf7",
+    "hash": "b6b38c3c1bbd05d190a0ff0fac6a8469",
+    "content-hash": "fd97c91d47cfb86473ce38e9b0751de5",
     "packages": [
         {
             "name": "brickrouge/brickrouge",
-            "version": "2.1.x-dev",
+            "version": "3.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Brickrouge/Brickrouge.git",
-                "reference": "1fbfc4da2aeb4d9912f797060eb99afc1c121a20"
+                "reference": "7a775761e178a61eb0f809acf216886d96a7f5fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Brickrouge/Brickrouge/zipball/1fbfc4da2aeb4d9912f797060eb99afc1c121a20",
-                "reference": "1fbfc4da2aeb4d9912f797060eb99afc1c121a20",
+                "url": "https://api.github.com/repos/Brickrouge/Brickrouge/zipball/7a775761e178a61eb0f809acf216886d96a7f5fb",
+                "reference": "7a775761e178a61eb0f809acf216886d96a7f5fb",
                 "shasum": ""
             },
             "require": {
                 "icanboogie/common": "^1.2.2",
-                "icanboogie/errors": "^1.0.0",
-                "icanboogie/prototype": ">=2.2.0",
-                "php": ">=5.4.0"
+                "icanboogie/prototype": "^2.3.0",
+                "php": ">=5.5.0"
             },
             "require-dev": {
+                "icanboogie/errors": "^1.0.0",
+                "icanboogie/validate": "dev-master",
                 "olvlvl/filecache": "dev-master"
             },
             "type": "library",
@@ -66,7 +67,7 @@
                 "html",
                 "widget"
             ],
-            "time": "2015-12-28 17:23:22"
+            "time": "2016-02-09 23:31:38"
         },
         {
             "name": "icanboogie/accessor",
@@ -112,6 +113,309 @@
                 "setter"
             ],
             "time": "2015-08-24 20:23:06"
+        },
+        {
+            "name": "icanboogie/bind-event",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/bind-event.git",
+                "reference": "487a0d702fb84ad06780311e4f7451d38a69e564"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/bind-event/zipball/487a0d702fb84ad06780311e4f7451d38a69e564",
+                "reference": "487a0d702fb84ad06780311e4f7451d38a69e564",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/event": "^2.0.0",
+                "icanboogie/icanboogie": "^3.0.0",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "extra": {
+                "icanboogie": {
+                    "config-path": "config",
+                    "config-constructor": {
+                        "event": "ICanBoogie\\Binding\\Event\\Hooks::synthesize_config"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\Binding\\Event\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Binds icanboogie/event to ICanBoogie.",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "event",
+                "icanboogie"
+            ],
+            "time": "2015-12-24 00:34:25"
+        },
+        {
+            "name": "icanboogie/bind-http",
+            "version": "v2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/bind-http.git",
+                "reference": "f654d8d0c93ee4f327690eab82aaf7bc0fbb8c32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/bind-http/zipball/f654d8d0c93ee4f327690eab82aaf7bc0fbb8c32",
+                "reference": "f654d8d0c93ee4f327690eab82aaf7bc0fbb8c32",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/http": "^2.6.0",
+                "icanboogie/icanboogie": "^3.0.0",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "extra": {
+                "icanboogie": {
+                    "config-path": "config",
+                    "config-constructor": {
+                        "http_dispatchers": "ICanBoogie\\Binding\\HTTP\\Hooks::synthesize_dispatchers_config#http"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\Binding\\HTTP\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Binds icanboogie/http to ICanBoogie",
+            "homepage": "http://icanboogie.org/",
+            "time": "2016-01-03 13:27:16"
+        },
+        {
+            "name": "icanboogie/bind-prototype",
+            "version": "v2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/bind-prototype.git",
+                "reference": "9ea95ab26da0542638a927169297a2b8bc822aaf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/bind-prototype/zipball/9ea95ab26da0542638a927169297a2b8bc822aaf",
+                "reference": "9ea95ab26da0542638a927169297a2b8bc822aaf",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/icanboogie": "^3.0.0",
+                "icanboogie/prototype": "^2.3.0",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "extra": {
+                "icanboogie": {
+                    "config-constructor": {
+                        "prototype": "ICanBoogie\\Binding\\Prototype\\Hooks::synthesize_config"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\Binding\\Prototype\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Binds icanboogie/prototype to ICanBoogie.",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "icanboogie",
+                "prototype"
+            ],
+            "time": "2015-12-26 20:55:43"
+        },
+        {
+            "name": "icanboogie/bind-render",
+            "version": "v0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/bind-render.git",
+                "reference": "3b70f78abff65adfd2a8f4c5f962dca1181c89e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/bind-render/zipball/3b70f78abff65adfd2a8f4c5f962dca1181c89e0",
+                "reference": "3b70f78abff65adfd2a8f4c5f962dca1181c89e0",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/icanboogie": "^3.0.0",
+                "icanboogie/render": "^0.5.0",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "psr/log": "1.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "icanboogie": {
+                    "config-path": "config"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\Binding\\Render\\": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Binds icanboogie/render to ICanBoogie",
+            "homepage": "http://icanboogie.org/",
+            "time": "2015-12-27 13:50:29"
+        },
+        {
+            "name": "icanboogie/bind-routing",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/bind-routing.git",
+                "reference": "047b882342ee1ceb6e39266a145711b9b4dc4a59"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/bind-routing/zipball/047b882342ee1ceb6e39266a145711b9b4dc4a59",
+                "reference": "047b882342ee1ceb6e39266a145711b9b4dc4a59",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/icanboogie": "^3.0.0",
+                "icanboogie/routing": "^3.0.0",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "extra": {
+                "icanboogie": {
+                    "config-path": "config",
+                    "config-constructor": {
+                        "routes": "ICanBoogie\\Binding\\Routing\\Hooks::synthesize_routes_config"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\Binding\\Routing\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Binds icanboogie/routing to ICanBoogie.",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "icanboogie",
+                "routing"
+            ],
+            "time": "2016-01-02 17:59:24"
+        },
+        {
+            "name": "icanboogie/bind-view",
+            "version": "v0.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/bind-view.git",
+                "reference": "8583113a910c04b8eb50c06528d0e9d201a25034"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/bind-view/zipball/8583113a910c04b8eb50c06528d0e9d201a25034",
+                "reference": "8583113a910c04b8eb50c06528d0e9d201a25034",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/bind-render": "^0.5.0",
+                "icanboogie/icanboogie": "^3.0.0",
+                "icanboogie/view": "^0.8.0",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "extra": {
+                "icanboogie": {
+                    "config-path": "config"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\Binding\\View\\": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Binds icanboogie/view to ICanBoogie",
+            "homepage": "http://icanboogie.org/",
+            "time": "2016-01-23 13:38:02"
         },
         {
             "name": "icanboogie/common",
@@ -160,21 +464,71 @@
             "time": "2014-10-21 12:06:36"
         },
         {
-            "name": "icanboogie/errors",
-            "version": "v1.0.1",
+            "name": "icanboogie/config",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ICanBoogie/Errors.git",
-                "reference": "7ec3a2cb6199b239939bd6ccd294b637346cc6f9"
+                "url": "https://github.com/ICanBoogie/Config.git",
+                "reference": "8993501ce0266d645c2b61d8159a307eace395b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ICanBoogie/Errors/zipball/7ec3a2cb6199b239939bd6ccd294b637346cc6f9",
-                "reference": "7ec3a2cb6199b239939bd6ccd294b637346cc6f9",
+                "url": "https://api.github.com/repos/ICanBoogie/Config/zipball/8993501ce0266d645c2b61d8159a307eace395b4",
+                "reference": "8993501ce0266d645c2b61d8159a307eace395b4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "icanboogie/common": "^1.2.2",
+                "icanboogie/storage": "^2.0.0",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Synthesizes low-level configurations.",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "config"
+            ],
+            "time": "2015-12-26 20:38:56"
+        },
+        {
+            "name": "icanboogie/datetime",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/DateTime.git",
+                "reference": "16314ad8b8bbd9a166ea6917d916fbbb6acbf229"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/DateTime/zipball/16314ad8b8bbd9a166ea6917d916fbbb6acbf229",
+                "reference": "16314ad8b8bbd9a166ea6917d916fbbb6acbf229",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "icanboogie/common": "~1.2"
+            },
+            "suggest": {
+                "icanboogie/common": "Allows finer exceptions to be thrown"
             },
             "type": "library",
             "autoload": {
@@ -194,25 +548,265 @@
                     "role": "Developer"
                 }
             ],
-            "description": "An error collector",
+            "description": "Extends the features of PHP DateTime and DateTimeZone",
             "homepage": "http://icanboogie.org/",
             "keywords": [
-                "errors"
+                "date",
+                "time",
+                "timezone"
             ],
-            "time": "2015-08-29 01:23:38"
+            "time": "2015-12-22 09:22:17"
         },
         {
-            "name": "icanboogie/prototype",
-            "version": "dev-master",
+            "name": "icanboogie/event",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ICanBoogie/Prototype.git",
-                "reference": "fc8e3fc329e9a99114f17e676523924c83aebddd"
+                "url": "https://github.com/ICanBoogie/Event.git",
+                "reference": "2fd45a341d7943105c6f65c51256ee6f1fc3ec63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ICanBoogie/Prototype/zipball/fc8e3fc329e9a99114f17e676523924c83aebddd",
-                "reference": "fc8e3fc329e9a99114f17e676523924c83aebddd",
+                "url": "https://api.github.com/repos/ICanBoogie/Event/zipball/2fd45a341d7943105c6f65c51256ee6f1fc3ec63",
+                "reference": "2fd45a341d7943105c6f65c51256ee6f1fc3ec63",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/accessor": "^1.0",
+                "icanboogie/common": "^1.2",
+                "icanboogie/inflector": "^1.3",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\": "lib/"
+                },
+                "files": [
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides an event API",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "event"
+            ],
+            "time": "2016-01-02 03:02:49"
+        },
+        {
+            "name": "icanboogie/http",
+            "version": "2.7.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/HTTP.git",
+                "reference": "374b444e152c9f6328119e6a49bab2a73b4edbbb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/HTTP/zipball/374b444e152c9f6328119e6a49bab2a73b4edbbb",
+                "reference": "374b444e152c9f6328119e6a49bab2a73b4edbbb",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/datetime": "^1.2",
+                "icanboogie/event": "^1.4|^2.0",
+                "icanboogie/prototype": "^2.3",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "icanboogie/event": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\HTTP\\": "lib/"
+                },
+                "classmap": [
+                    "lib/RescueEvent.php"
+                ],
+                "files": [
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides an API to handle HTTP requests.",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "dispatcher",
+                "http",
+                "request",
+                "response"
+            ],
+            "time": "2016-01-24 18:20:53"
+        },
+        {
+            "name": "icanboogie/icanboogie",
+            "version": "3.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/ICanBoogie.git",
+                "reference": "80e2211a607de98c2506bbda54e4b07d26218dbe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/ICanBoogie/zipball/80e2211a607de98c2506bbda54e4b07d26218dbe",
+                "reference": "80e2211a607de98c2506bbda54e4b07d26218dbe",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/bind-event": "^2.0.0",
+                "icanboogie/bind-http": "^2.6.0",
+                "icanboogie/bind-prototype": "^2.3.0",
+                "icanboogie/bind-routing": "^3.0.0",
+                "icanboogie/config": "^1.0.0",
+                "icanboogie/session": "dev-master",
+                "icanboogie/storage": "^2.0.0",
+                "php": ">=5.5.0",
+                "psr/log": "^1.0.0"
+            },
+            "require-dev": {
+                "composer/composer": "dev-master"
+            },
+            "suggest": {
+                "icanboogie/bind-activerecord": "ActiveRecord Object-relational mapping.",
+                "icanboogie/bind-cldr": "Provides internationalization to your application.",
+                "icanboogie/bind-render": "Provides a rendering API to your application.",
+                "icanboogie/bind-view": "Provides views to your application.",
+                "icanboogie/i18n": "Provides localization for your application and nice internationalization helpers.",
+                "icanboogie/image": "Provides image resizing, filling, and color resolving.",
+                "icanboogie/module": "Provides support to extend ICanBoogie using modules.",
+                "icanboogie/operation": "Operation oriented controllers API."
+            },
+            "type": "library",
+            "extra": {
+                "icanboogie": {
+                    "app-root": "protected",
+                    "config-path": "config/",
+                    "locale-path": "locale/",
+                    "config-constructor": {
+                        "core": "recursive merge",
+                        "debug": "ICanBoogie\\Debug::synthesize_config"
+                    },
+                    "autoconfig-filters": [
+                        "ICanBoogie\\Autoconfig\\Hooks::filter_autoconfig"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\": "lib"
+                },
+                "files": [
+                    "bootstrap.php",
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "High-performance object-oriented micro-framework for PHP5.4+",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "framework"
+            ],
+            "time": "2016-01-02 17:45:15"
+        },
+        {
+            "name": "icanboogie/inflector",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/Inflector.git",
+                "reference": "e19c8df837fdafb3571df4fb94133bb69ccbce81"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/Inflector/zipball/e19c8df837fdafb3571df4fb94133bb69ccbce81",
+                "reference": "e19c8df837fdafb3571df4fb94133bb69ccbce81",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/"
+                ],
+                "files": [
+                    "lib/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Multilingual inflector that transforms words from singular to plural, underscore to camel case, and more.",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "camelize",
+                "hyphenate",
+                "inflect",
+                "multilingual",
+                "pluralize",
+                "singularize",
+                "underscore"
+            ],
+            "time": "2015-11-03 11:03:27"
+        },
+        {
+            "name": "icanboogie/prototype",
+            "version": "v2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/Prototype.git",
+                "reference": "581a375049f86bb239f0f425ec0875fb515a1b98"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/Prototype/zipball/581a375049f86bb239f0f425ec0875fb515a1b98",
+                "reference": "581a375049f86bb239f0f425ec0875fb515a1b98",
                 "shasum": ""
             },
             "require": {
@@ -223,9 +817,14 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "ICanBoogie\\": "lib",
-                    "ICanBoogie\\Prototype\\": "lib/Prototype"
-                }
+                    "ICanBoogie\\Prototype\\": "lib/Prototype",
+                    "ICanBoogie\\Prototyped\\": "lib/Prototyped"
+                },
+                "classmap": [
+                    "lib/Prototype.php",
+                    "lib/Prototyped.php",
+                    "lib/PrototypeTrait.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -247,7 +846,288 @@
                 "prototype",
                 "setter"
             ],
-            "time": "2015-12-26 18:24:51"
+            "time": "2015-09-01 22:37:25"
+        },
+        {
+            "name": "icanboogie/render",
+            "version": "v0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/Render.git",
+                "reference": "a6cc572ca32864437707b7af3ca32b27e4151555"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/Render/zipball/a6cc572ca32864437707b7af3ca32b27e4151555",
+                "reference": "a6cc572ca32864437707b7af3ca32b27e4151555",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/event": "^1.4.0|^2.0.0",
+                "icanboogie/prototype": "^2.3.0",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "icanboogie/event": "^2.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\Render\\": "lib/"
+                },
+                "files": [
+                    "lib/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Renders templates with a variety of template engines.",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "decorate",
+                "render"
+            ],
+            "time": "2016-01-23 13:13:18"
+        },
+        {
+            "name": "icanboogie/routing",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/Routing.git",
+                "reference": "5928072162864e8f9a3f36228b94b2ad7c717c59"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/Routing/zipball/5928072162864e8f9a3f36228b94b2ad7c717c59",
+                "reference": "5928072162864e8f9a3f36228b94b2ad7c717c59",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/http": "^2.5.0",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\Routing\\": "lib/"
+                },
+                "files": [
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Request routing.",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "routing"
+            ],
+            "time": "2015-12-26 21:20:02"
+        },
+        {
+            "name": "icanboogie/session",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/Session.git",
+                "reference": "387b99a60b72086170f90c0595a031df84eb110a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/Session/zipball/387b99a60b72086170f90c0595a031df84eb110a",
+                "reference": "387b99a60b72086170f90c0595a031df84eb110a",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/accessor": "^1.0",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\": "lib/",
+                    "ICanBoogie\\Session\\": "lib/Session"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Manage sessions",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "session"
+            ],
+            "time": "2016-01-23 21:29:00"
+        },
+        {
+            "name": "icanboogie/storage",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/Storage.git",
+                "reference": "6c88181d3e230af62bc818d49788f2fd08bb9c84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/Storage/zipball/6c88181d3e230af62bc818d49788f2fd08bb9c84",
+                "reference": "6c88181d3e230af62bc818d49788f2fd08bb9c84",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\Storage\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Store and retrieve values, using different/multiple storage backends.",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "cache",
+                "retrieve",
+                "store"
+            ],
+            "time": "2015-10-27 23:35:53"
+        },
+        {
+            "name": "icanboogie/view",
+            "version": "0.8.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/View.git",
+                "reference": "0f046030ac8c62ddc31965956c28c27a47e2f38b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/View/zipball/0f046030ac8c62ddc31965956c28c27a47e2f38b",
+                "reference": "0f046030ac8c62ddc31965956c28c27a47e2f38b",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/event": "^2.0.0",
+                "icanboogie/render": "^0.5.0",
+                "icanboogie/routing": "^3.0.0",
+                "php": ">=5.5.0"
+            },
+            "suggest": {
+                "icanboogie/bind-view": "Binds the package to ICanBoogie"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\View\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides view support to ICanBoogie",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "template",
+                "view"
+            ],
+            "time": "2016-01-15 16:14:25"
+        },
+        {
+            "name": "psr/log",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/d8e60a5619fff77f9669da8997697443ef1a1d7e",
+                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2016-01-06 21:40:42"
         }
     ],
     "packages-dev": [],

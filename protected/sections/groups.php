@@ -1,28 +1,17 @@
 <section id="groups">
-<div class="page-header">
-	<h1>Groups <small>Grouping elements with relative order</small></h1>
-</div>
-
-<h2>Group elements</h2>
-
-<div class="row">
-	<div class="span4">
-		<p>Usually elements within a form are grouped according to the <code>GROUP</code>
-		attribute. But groups can be as easilly created using the <code>Group</code>
-		class.</p>
-
-		<p>The <code>Group</code> class wraps its children in a <code>FIELDSET</code> element,
-		an optionnal legend can be used to provide the group with a title. Each child is wrapped
-		in a <code>DIV.field</code> element and the form label is distinguished from the input
-		itself.</p>
-
-		<p>The <code>Group</code> class supports the <code>WEIGHT</code> attribute and displays
-		ordered children.</p>
+	<div class="page-header">
+		<h1>Grouping elements</h1>
 	</div>
 
-	<div class="span8">
-		<?php display_example('groups-group') ?>
+	<p>Elements may be grouped using a <code>Group</code> instance. The <code>WEIGHT</code> attribute
+	may be used to specify the order in which the elements should be displayed. The weight
+	may be specified as a number or a position relative to another element e.g. <code>123</code>,
+	<code>before:other_element</code>, <code>after:other_element</code>. Additionally the
+	<code>LEGEND</code> attribute may be used to give the group a title.</p>
+
+	<div class="doc-example">
+	<?php display_demo('groups-group') ?>
 	</div>
-</div>
+	<?php display_source('groups-group') ?>
 
 </section>

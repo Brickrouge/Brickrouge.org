@@ -2,7 +2,7 @@
 	<div class="page-header"><h1>The big form</h1></div>
 
 	<div class="row">
-		<div class="span4">
+		<div class="col-lg-4">
 			<p>The form here against is entirely created, filled and validated using Brickrouge.</p>
 
 			<p>Every elements of the form are objects instanciated from the
@@ -15,20 +15,20 @@
 			<p class="small">The source code of the form is available here after.</p>
 		</div>
 
-		<div class="span8">
+		<div class="col-lg-8">
 			<div class="example"><?php echo $form ?></div>
 			<?php display_demo('protected/form.php') ?>
 		</div>
 	</div>
 
 	<div class="row">
-	<div class="span12">
+	<div class="col-lg-12">
 	<?php display_source('protected/form.php') ?>
 	</div>
 	</div>
 
 	<div class="row">
-		<div class="span4">
+		<div class="col-lg-4">
 			<h2>Validating a form</h2>
 			<p>You can ask a form to validate the data provided by the user. Errors are collected in a
 			<code>ICanBoogie\Errors</code> object. The method search for required values before
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </pre>
 		</div>
 
-		<div class="span4">
+		<div class="col-lg-4">
 			<h2>Traversing a form</h2>
 			<p>Forms are traversed recursively. This comes handy when you need to alter a bunch of
 			elements, or simply display their lovely names as the example below.</p>
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			<div class="alert alert-info"><?php display_demo('form-traversing') ?></div>
 		</div>
 
-		<div class="span4">
+		<div class="col-lg-4">
 			<h2>Disabling a form <small>and all of its elements</small></h2>
 			<p>A form and all of its elements can be easily disabled using the <code>disabled</code>
 			attribute:</p>

@@ -1,0 +1,359 @@
+<?php
+
+namespace App;
+
+use Brickrouge;
+
+?>
+
+<div class="hero-unit">
+	<div class="container">
+		<h1>Calendar</h1>
+
+		<p class="lead">Brickrouge provides highly customizable and functional calendars, which are automatically
+		accessible to screen reader and keyboard only users.</p>
+
+		<p>Calendars are localized using the <a href="http://mootools.net/docs/more/Locale/Locale"
+		target="_blank">MooTools Locale interface</a>.</p>
+
+	</div>
+</div>
+
+<section id="calendar" class="container">
+
+	<h1>First, there's a month…</h1>
+
+	<p>The <code>Brickrouge.Calendar.Month</code> class is used to handle and render months.
+		Give it a <code>TABLE</code> or <code>TBODY</code> element and it will happily render
+		the month of a given date.</p>
+
+	<p>The <code>update</code> event is fired when the date is updated, which only happens
+		when the keyboard is used to browse dates. The <code>change</code> event is fired when
+		the date is validated, either by clicking on a day cell or by pressing <kbd>enter</kbd>
+		or <kbd>space</kbd>.</p>
+
+	<div id="standalone-calendar-month-debug" class="alert alert-info"><em>No event yet… Click any day, don't be afraid!</em></div>
+
+	<div class="doc-example">
+		<table id="standalone-calendar-month" class="calendar" role="grid" aria-labelledby="month">
+			<tbody class="calendar-month" tabindex="0">
+			<tr><td>Javascript must be activated.</td></tr>
+			</tbody>
+		</table>
+	</div>
+
+	<pre><code class="lang-html"><?php
+
+		echo Brickrouge\escape(<<<EOT
+<table id="standalone-calendar-month" class="calendar" role="grid" aria-labelledby="month">
+    <tbody class="calendar-month" tabindex="0">
+        <tr><td>Javascript must be activated.</td></tr>
+    </tbody>
+</table>
+EOT
+
+		)
+
+	?></code></pre>
+
+	<h2>Navigation shortcuts</h2>
+
+	<p>The element can be controlled using the keyboard. The following combination are recognized:</p>
+
+	<table class="table table-bordered" id="calendar-shortcuts">
+		<tr>
+			<th>Next day</th><td><kbd>right</kbd></td>
+			<th>Next month</th><td><kbd>shift+right</kbd><br /><kbd>page-down</kbd><br /><kbd>m</kbd></td>
+			<th>Next year</th><td><kbd>alt+right</kbd><br /><kbd>shift+page-down</kbd><br /><kbd>y</kbd></td>
+		</tr>
+
+		<tr>
+			<th>Previous day</th><td><kbd>left</kbd></td>
+			<th>Previous month</th><td><kbd>shift+left</kbd><br /><kbd>page-up</kbd><br /><kbd>shift+m</kbd></td>
+			<th>Previous year</th><td><kbd>alt+left</kbd><br /><kbd>shift+page-up</kbd><br /><kbd>shift+y</kbd></td>
+		</tr>
+
+		<tr>
+			<th>Next week</th><td><kbd>down</kbd></td>
+			<th>Next 10 years</th><td><kbd>alt+y</kbd></td>
+			<th>Today</th><td><kbd>t</kbd></td>
+
+		</tr>
+
+		<tr>
+			<th>Previous week</th><td><kbd>up</kbd></td>
+			<th>Previous 10 years</th><td><kbd>alt+shift+y</kbd></td>
+			<th>Select date</th><td><kbd>enter|space</kbd></td>
+		</tr>
+
+		<tr>
+			<td colspan="5"><strong>Opens the date editor</strong>, which lets you enter the year,
+				month and day using text inputs. Note: This shortcut is only available with the
+				calendar element.</td>
+			<td><kbd>e</kbd></td>
+		</tr>
+	</table>
+</section>
+
+<section class="container">
+	<h1>… then a calendar</h1>
+
+	<p> The <code>Brickrouge.Calendar</code> class is used to create calendars. A <code>TABLE</code>
+		element is required to setup the calendar. The <code>CAPTION</code> element of the table
+		contains the controls and the <code>THEAD</code> element contains the day names.</p>
+
+	<p>The <code>data-decrement</code> and <code>data-increment</code> attributes are used
+		to decrement and increment the date. <code>data-increment="month"</code> increments the
+		month and <code>data-increment="year"</code>
+		increments the month. The <code>data-increment-amount</code> and <code>data-decrement-amount</code>
+		attributes can be used to specify the amount of increment/decrement, which defaults to 1.</p>
+
+	<div class="doc-example">
+		<table id="calendar-edit-date" class="calendar" role="grid" aria-labelledby="month">
+			<caption>
+				<span class="date">
+					<span class="browse prev" data-decrement="month">←</span>
+					<span class="name" data-edit="date">
+					<span class="month"><span class="name">&nbsp;</span></span>
+					<span class="year"><span class="name">&nbsp;</span></span>
+					</span>
+					<span class="browse next" data-increment="month">→</span>
+				</span>
+			</caption>
+
+			<thead>
+			<tr class="calendar-weekdays">
+				<th class="calendar-weekcount dummy">W</th>
+				<th class="calendar-weekday">Mo</th>
+				<th class="calendar-weekday">Tu</th>
+				<th class="calendar-weekday">We</th>
+				<th class="calendar-weekday">Th</th>
+				<th class="calendar-weekday">Fr</th>
+				<th class="calendar-weekday">Sa</th>
+				<th class="calendar-weekday">Su</th>
+			</tr>
+			</thead>
+
+			<tbody class="calendar-month" tabindex="0">
+			<tr><td colspan="8">Javascript must be activated.</td></tr>
+			</tbody>
+		</table>
+	</div>
+
+	<pre><code class="lang-html"><?php
+
+		echo Brickrouge\escape(<<<EOT
+<table id="calendar-edit-date" class="calendar" role="grid" aria-labelledby="month">
+    <caption>
+        <span class="date">
+            <span class="browse prev" data-decrement="month">←</span>
+            <span class="name" data-edit="date">
+            <span class="month"><span class="name">&nbsp;</span></span>
+            <span class="year"><span class="name">&nbsp;</span></span>
+            </span>
+            <span class="browse next" data-increment="month">→</span>
+        </span>
+    </caption>
+
+    <thead>
+        <tr class="calendar-weekdays">
+            <th class="calendar-weekcount">W</th>
+            <th class="calendar-weekday">Mo</th>
+            <th class="calendar-weekday">Tu</th>
+            <th class="calendar-weekday">We</th>
+            <th class="calendar-weekday">Th</th>
+            <th class="calendar-weekday">Fr</th>
+            <th class="calendar-weekday">Sa</th>
+            <th class="calendar-weekday">Su</th>
+        </tr>
+    </thead>
+
+    <tbody class="calendar-month" tabindex="0">
+        <tr><td colspan="8">Javascript must be activated.</td></tr>
+    </tbody>
+</table>
+EOT
+
+		)
+
+	?></code></pre>
+
+	<pre><code class="lang-js">var calendar = new Brickrouge.Calendar('calendar-edit-date')</code></pre>
+
+
+	<h2>Markup is optional</h2>
+
+	<p>The <code>Brickrouge.Calendar.from()</code> method is used to create
+		calendars from options, without requiring an existing markup.</p>
+
+	<div class="doc-example">
+		<div id="calendar-placeholder"></div>
+	</div>
+
+		<pre><code class="lang-html"><?php
+
+				echo Brickrouge\escape(<<<EOT
+<div id="calendar-placeholder"></div>
+
+<script>
+var calendar = Brickrouge.Calendar.from({ noWeekNumber: true, noDayNames: true })
+
+calendar.element.inject('calendar-placeholder')
+</script>
+EOT
+) ?></code></pre>
+
+</section>
+
+<section class="container">
+	<h1>Date layouts and editors</h1>
+
+	<p>Date editors are used to enter dates manually, which can be quite handy when you need to
+		enter the birthday of Paul Atreides (10175 AG).</p>
+
+	<p>The <code>data-edit</code> attribute is used to specify the editor to use. The
+		following values are supported: <code>date</code>, <code>year</code>, <code>month</code>
+		and <code>day</code>.</p>
+
+	<p>Calendars usually use the <code>date</code> editor, but the calendar here
+		against is using two separate editors for its <code>month</code> and
+		<code>year</code>.</p>
+
+	<div class="alert alert-info"><strong>Remember:</strong> The shortcut <kbd>e</kbd>
+		always brings up the <em>date</em> editor.</div>
+
+	<div class="doc-example">
+		<table id="calendar-edit-month-year" class="calendar" role="grid" aria-labelledby="month">
+			<caption>
+				<span class="month">
+					<span class="browse prev" data-decrement="month">←</span>
+					<span class="name" data-edit="month">&nbsp;</span>
+					<span class="browse next" data-increment="month">→</span>
+				</span>
+
+				<span class="year">
+					<span class="browse prev" data-decrement="year">←</span>
+					<span class="name" data-edit="year">&nbsp;</span>
+					<span class="browse next" data-increment="year">→</span>
+				</span>
+			</caption>
+
+			<thead>
+			<tr class="calendar-weekdays">
+				<th class="calendar-weekcount dummy">W</th>
+				<th class="calendar-weekday">Mo</th>
+				<th class="calendar-weekday">Tu</th>
+				<th class="calendar-weekday">We</th>
+				<th class="calendar-weekday">Th</th>
+				<th class="calendar-weekday">Fr</th>
+				<th class="calendar-weekday">Sa</th>
+				<th class="calendar-weekday">Su</th>
+			</tr>
+			</thead>
+
+			<tbody class="calendar-month" tabindex="0">
+			<tr><td colspan="8">Javascript must be activated.</td></tr>
+			</tbody>
+		</table>
+	</div>
+
+	<pre><code class="lang-html"><?php
+
+		echo Brickrouge\escape(<<<EOT
+<caption>
+    <span class="month">
+        <span class="browse prev" data-decrement="month">←</span>
+        <span class="name" data-edit="month">&nbsp;</span>
+        <span class="browse next" data-increment="month">→</span>
+    </span>
+
+    <span class="year">
+        <span class="browse prev" data-decrement="year">←</span>
+        <span class="name" data-edit="year">&nbsp;</span>
+        <span class="browse next" data-increment="year">→</span>
+    </span>
+</caption>
+EOT
+
+				)
+
+	?></code></pre>
+
+</section>
+
+<section id="calendar" class="container">
+	<div class="page-header">
+		<h1>Datepicker</h1>
+
+		<p>A datepicker is a calendar lovingly fitted in a popver anchored to an input element, it
+			provides a nice interface to edit dates.</p>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-6">
+			<h2>A calendar, in a popover</h2>
+
+			<p>When the input element is focused the datepicker is opened and keyboard events
+				are delegated to it so that you can navigate dates using keys and shortcuts.</p>
+
+			<div class="alert alert-info"><strong>Remember:</strong> The shortcut <kbd>t</kbd>
+				sets the date to <em>today</em>. The shortcut <kbd>esc</kbd> closes the datepicker and
+				the shortcut <kbd>enter</kbd> opens it again.</div>
+		</div>
+
+		<div class="col-lg-6">
+			<div class="doc-example">
+				<div class="control-group">
+					<label class="controls-label">Date:</label>
+					<div class="controls"><input id="calendar-anchor" type="text" class="form-control" /></div>
+				</div>
+			</div>
+
+			<pre><code class="lang-html"><?php
+
+echo Brickrouge\escape(<<<EOT
+<input id="calendar-anchor" type="text" />
+
+<script>
+new Brickrouge.Datepicker({ anchor: 'calendar-anchor' })
+</script>
+EOT
+
+			) ?></code></pre>
+
+		</div>
+	</div>
+
+	<h2>Automatically attachable</h2>
+
+	<p>Datepickers are automatically attached to elements matching the
+		<code>[data-editor="datepicker"]</code> selector when they are first focused.</p>
+
+	<div class="alert alert-info"><strong>Remember:</strong> Because keyboard events are delegated to the calendar
+		only when the datepicker is opened, you can use the <kbd>esc</kbd> key to close it
+		and edit the date freely.</div>
+
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="doc-example">
+				<div class="control-group">
+					<label class="controls-label">Date:</label>
+					<div class="controls"><input type="text" class="form-control" data-editor="datepicker" /></div>
+				</div>
+			</div>
+
+			<pre><code class="lang-html">&lt;input type="text" data-editor="datepicker" /&gt;</code></pre>
+		</div>
+
+		<div class="col-lg-6">
+			<div class="doc-example">
+				<div class="control-group">
+					<label class="controls-label">Date (but no week numbers):</label>
+					<div class="controls"><input type="text" class="form-control" data-editor="datepicker" data-no-week-number="true" /></div>
+				</div>
+			</div>
+
+			<pre><code class="lang-html">&lt;input type="text" data-editor="datepicker" data-no-week-number="true" /&gt;</code></pre>
+		</div>
+	</div>
+</section>

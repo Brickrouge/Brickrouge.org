@@ -1,0 +1,73 @@
+<?php
+
+namespace Brickrouge;
+
+echo new Form([
+
+	Form::ACTIONS => [
+
+		new Button("Submit", [ 'type' => 'submit', 'class' => 'btn-primary' ])
+
+	],
+
+	Form::RENDERER => Form\GroupRenderer::class,
+
+	Element::CHILDREN => [
+
+		'inputWarning' => new Text([
+
+			Group::LABEL => "Input with warning",
+			Element::INLINE_HELP => "Something may have gone wrong",
+			Element::STATE => Element::STATE_WARNING
+
+		]),
+
+		'inputError' => new Text([
+
+			Group::LABEL => "Input with error",
+			Element::INLINE_HELP => "Please correct the error",
+			Element::STATE => Element::STATE_DANGER
+
+		]),
+
+		'inputSuccess' => new Text([
+
+			Group::LABEL => "Input with success",
+			Element::INLINE_HELP => "Woohoo!",
+			Element::STATE => Element::STATE_SUCCESS
+
+		]),
+
+		'radioWarning' => new Element(Element::TYPE_RADIO_GROUP, [
+
+			Group::LABEL => "Radio group with warning",
+			Element::INLINE_HELP => "Something may have gone wrong",
+			Element::DESCRIPTION => "The element description remains neutral.",
+			Element::STATE => Element::STATE_WARNING,
+			Element::OPTIONS => [ 1 => 1, 2, 3 ]
+
+		]),
+
+		'checkboxError' => new Element(Element::TYPE_RADIO_GROUP, [
+
+			Group::LABEL => "Checkbox group with error",
+			Element::INLINE_HELP => "Please correct the error",
+			Element::DESCRIPTION => "The element description remains neutral.",
+			Element::STATE => Element::STATE_DANGER,
+			Element::OPTIONS => [ 1 => 1, 2, 3 ]
+
+		]),
+
+		'textareaSuccess' => new Element('textarea', [
+
+			Group::LABEL => "Textarea with success",
+			Element::INLINE_HELP => "Woohoo!",
+			Element::STATE => Element::STATE_SUCCESS,
+
+			'rows' => 3
+
+		]),
+
+	]
+
+]);
