@@ -1,5 +1,5 @@
 <section id="form">
-	<div class="page-header"><h1>The big form</h1></div>
+	<h1>The big form</h1>
 
 	<div class="row">
 		<div class="col-lg-4">

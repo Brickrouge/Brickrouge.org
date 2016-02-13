@@ -4,9 +4,7 @@ namespace Brickrouge;
 
 ?>
 <section id="buttonDropdowns">
-	<div class="page-header">
-		<h1>Split button dropdowns</h1>
-	</div>
+	<h1>Split button dropdowns</h1>
 
 	<p>Split buttons feature a standard action on the left and a dropdown toggle on the right with
 	contextual links.</p>

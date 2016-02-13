@@ -1,5 +1,5 @@
 <section id="forms">
-	<div class="page-header"><h1>Forms</h1></div>
+	<h1>Forms</h1>
 
 	<h2>Form controls</h2>
 
@@ -15,7 +15,11 @@ attribute is updated when a form is validated. The attribute may be used by grou
 elements. Possible values are <code><em>null</em></code>, <code>STATE_DANGER</code>,
 <code>STATE_SUCCESS</code>, and <code>STATE_WARNING</code>.</p>
 
-	<pre><code class="lang-php">&lt;?php echo new Text([
+	<pre><code class="lang-php">&lt;?php
+
+namespace Brickrouge;
+
+echo new Text([
 
     Group::LABEL => "Input with warning",
     Element::INLINE_HELP => "Something may have gone wrong",

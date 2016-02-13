@@ -2,12 +2,14 @@
 
 namespace App;
 
+use App\View\Blocks;
 use Brickrouge;
 
 use function ICanBoogie\Render\render;use ICanBoogie\Render\Renderer;
 
 /**
  * @var $content string
+ * @var $blocks Blocks
  */
 
 ?><!DOCTYPE html>
@@ -21,13 +23,15 @@ use function ICanBoogie\Render\render;use ICanBoogie\Render\Renderer;
 	<link rel="stylesheet" href="<?= Brickrouge\Document::resolve_url(Brickrouge\ASSETS . 'brickrouge.css') ?>" type="text/css" />
 	<link rel="stylesheet" href="/assets/page.css" type="text/css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
-	<link rel="stylesheet" href="/assets/brickrouge/calendar.css" type="text/css" />
+	<?= $blocks->render('css') ?>
 </head>
 <body>
 
 <?= render([ Renderer::OPTION_PARTIAL => 'nav' ]) ?>
 <?= $content ?>
 <?= render([ Renderer::OPTION_PARTIAL => 'footer' ]) ?>
+
+<?= $blocks->render('scripts') ?>
 
 </body>
 </html>

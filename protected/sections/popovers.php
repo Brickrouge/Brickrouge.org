@@ -1,17 +1,15 @@
 <section id="popovers">
-	<div class="page-header">
-		<h1>Popovers <small>overlays of information or action</small></h1>
-	</div>
+	<h1>Popovers <small>overlays of information or action</small></h1>
+
+	<p>Add small overlays of content to any element for housing secondary information.</p>
 
 	<div class="row">
 		<div class="col-lg-3">
-			<h3>About popovers</h3>
-			<p>Add small overlays of content to any element for housing secondary information.</p>
+			<h2>Hover popover</h2>
+			<p>Hover over the button to trigger the popover.</p>
 		</div>
 
 		<div class="col-lg-9">
-			<h2>Example hover popover</h2>
-			<p>Hover over the button to trigger the popover.</p>
 			<?php display_example('popovers-rel') ?>
 		</div>
 	</div>

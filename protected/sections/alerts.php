@@ -1,7 +1,5 @@
 <section id="alerts">
-	<div class="page-header">
-		<h1>Alerts <small>Success, warning, and error messages</small></h1>
-	</div>
+	<h1>Alerts <small>Success, warning, and error messages</small></h1>
 
 	<div class="row">
 		<div class="col-lg-4">

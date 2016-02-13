@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b6b38c3c1bbd05d190a0ff0fac6a8469",
-    "content-hash": "fd97c91d47cfb86473ce38e9b0751de5",
+    "hash": "f06e325162fa691c45b45657ba10424a",
+    "content-hash": "1ac3a946243f4d5431e919facde08d77",
     "packages": [
         {
             "name": "brickrouge/brickrouge",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Brickrouge/Brickrouge.git",
-                "reference": "7a775761e178a61eb0f809acf216886d96a7f5fb"
+                "reference": "eb34d46d0d665bd8e3d46d6e6d85a7a5d8fae0c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Brickrouge/Brickrouge/zipball/7a775761e178a61eb0f809acf216886d96a7f5fb",
-                "reference": "7a775761e178a61eb0f809acf216886d96a7f5fb",
+                "url": "https://api.github.com/repos/Brickrouge/Brickrouge/zipball/eb34d46d0d665bd8e3d46d6e6d85a7a5d8fae0c5",
+                "reference": "eb34d46d0d665bd8e3d46d6e6d85a7a5d8fae0c5",
                 "shasum": ""
             },
             "require": {
@@ -67,7 +67,46 @@
                 "html",
                 "widget"
             ],
-            "time": "2016-02-09 23:31:38"
+            "time": "2016-02-11 00:57:26"
+        },
+        {
+            "name": "erusev/parsedown",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown.git",
+                "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
+                "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Parsedown": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "Parser for Markdown.",
+            "homepage": "http://parsedown.org",
+            "keywords": [
+                "markdown",
+                "parser"
+            ],
+            "time": "2015-10-04 16:44:32"
         },
         {
             "name": "icanboogie/accessor",
@@ -664,16 +703,16 @@
         },
         {
             "name": "icanboogie/icanboogie",
-            "version": "3.0.x-dev",
+            "version": "dev-php70",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ICanBoogie/ICanBoogie.git",
-                "reference": "80e2211a607de98c2506bbda54e4b07d26218dbe"
+                "reference": "c0a0abaf492940a06999d51b1a684e7b5f617731"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ICanBoogie/ICanBoogie/zipball/80e2211a607de98c2506bbda54e4b07d26218dbe",
-                "reference": "80e2211a607de98c2506bbda54e4b07d26218dbe",
+                "url": "https://api.github.com/repos/ICanBoogie/ICanBoogie/zipball/c0a0abaf492940a06999d51b1a684e7b5f617731",
+                "reference": "c0a0abaf492940a06999d51b1a684e7b5f617731",
                 "shasum": ""
             },
             "require": {
@@ -684,7 +723,7 @@
                 "icanboogie/config": "^1.0.0",
                 "icanboogie/session": "dev-master",
                 "icanboogie/storage": "^2.0.0",
-                "php": ">=5.5.0",
+                "php": ">=7.0",
                 "psr/log": "^1.0.0"
             },
             "require-dev": {
@@ -741,7 +780,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-01-02 17:45:15"
+            "time": "2016-02-11 00:34:12"
         },
         {
             "name": "icanboogie/inflector",
@@ -1131,9 +1170,18 @@
         }
     ],
     "packages-dev": [],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "3.0",
+            "alias_normalized": "3.0.0.0",
+            "version": "dev-php70",
+            "package": "icanboogie/icanboogie"
+        }
+    ],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "icanboogie/icanboogie": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

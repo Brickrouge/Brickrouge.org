@@ -1,7 +1,5 @@
 <section id="groups">
-	<div class="page-header">
-		<h1>Grouping elements</h1>
-	</div>
+	<h1>Grouping elements</h1>
 
 	<p>Elements may be grouped using a <code>Group</code> instance. The <code>WEIGHT</code> attribute
 	may be used to specify the order in which the elements should be displayed. The weight

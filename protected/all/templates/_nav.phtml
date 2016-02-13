@@ -1,9 +1,27 @@
-<nav class="navbar navbar-dark bg-inverse">
+<?php
+
+namespace App;
+
+use ICanBoogie\Routing\RouteDefinition as Route;
+
+$app = \ICanBoogie\app();
+$routes = $app->routes->filter(function(array $definition) {
+
+	return isset($definition[Route::CONTROLLER]) && !empty($definition['title'])
+	&& $definition[Route::CONTROLLER] === PageController::class;
+
+});
+
+$current_route = $app->request->context['route'];
+
+?><nav class="navbar navbar-dark bg-inverse">
 	<div class="container">
 		<ul class="nav navbar-nav">
-			<li class="nav-item active"><a href="/" class="nav-link">Brickrouge</a></li>
-			<li class="nav-item"><a href="/calendar" class="nav-link">Calendar</a></li>
-			<li class="nav-item"><a href="/docs" class="nav-link">Autodoc</a></li>
+			<?php foreach ($routes as $id => $definition): ?>
+			<li
+				class="nav-item <?= $id == $current_route->id ? 'active' : '' ?>"><a
+					href="<?= $definition[Route::PATTERN] ?>" class="nav-link"><?= $definition['title'] ?></a></li>
+			<?php endforeach ?>
 		</ul>
 	</div>
 </nav>

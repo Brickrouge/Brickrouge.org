@@ -11,9 +11,7 @@ namespace Brickrouge;
 </style>
 
 <section id="buttons">
-	<div class="page-header">
-		<h1>Buttons</h1>
-	</div>
+	<h1>Buttons</h1>
 
 	<p>The <code>Button</code> class is used to create buttons. Their label is translated in the
 		<code>button</code> scope. The initial type of the button is <code>button</code>.</p>

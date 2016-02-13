@@ -15,8 +15,8 @@
 	border-bottom: 2px solid #3d0d0d;
 }
 
-h2 {
-	margin-top: 2rem;
+[class^="col-"] > h2:first-child {
+	margin-top: 0;
 }
 
 .doc-example {
@@ -52,8 +52,63 @@ hr {
   border-bottom: 1px solid #fff;
 }
 
+
+
+
+
+
+
+
+
+p {
+	/*font-size: 1em; !* 16px *!*/
+	/*line-height: 1.50rem; !* 24px *!*/
+	/*margin: 0 0 1.50rem 0;*/
+}
+
+h1 {
+	font-size: 2.50rem; /* 40px */
+	line-height: 1.20em; /* 48px */
+	margin: 0.60em 0;
+}
+
+h2 {
+	font-size: 2.00rem; /* 32px */
+	line-height: 1.50em; /* 48px */
+	margin: 0.75em 0;
+}
+
+h3 {
+	font-size: 1.25rem; /* 20px */
+	line-height: 1.20em; /* 24px */
+	margin: 1.20em 0;
+}
+
+h4 {
+	font-size: 1.1250rem; /* 18px */
+	line-height: 1.3333em; /* 24px */
+	margin: 1.3333em 0;
+}
+
+
+
+
+
+
+
+
+
+
+
 section {
 	padding-top: 60px;
+}
+
+section > h1:first-child {
+	margin: 1rem 0 2rem 0;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 17px;
+	line-height: 1;
 }
 
 .page-header {
@@ -87,14 +142,28 @@ div.example>:last-child {
 	margin-bottom: 0
 }
 
-pre {
-	font-size: 85%;
+pre,
+blockquote {
 	background-color: #F7F7F9;
-	border-left: 5px solid #C4C4D3;
 	margin: 1rem 0;
 	max-height: 16em;
 	padding: 1px .5rem;
 	overflow: auto;
+}
+
+blockquote {
+	color: #777;
+	margin: 1rem 0;
+	padding: 1px 1rem;
+	border-left: 5px solid #C4C4D3;
+}
+
+blockquote p {
+	margin: 1rem 0;
+}
+
+pre {
+	font-size: 85%;
 }
 
 pre code {
@@ -120,7 +189,7 @@ pre code {
 	color: white;
 	background: #661616;
 	text-shadow: 1px 1px #4A1010;
-	padding: 2rem 0;
+	padding: 1rem 0;
 	border-bottom: 4px solid #4A1010;
 }
 
@@ -128,7 +197,7 @@ pre code {
 	font-size: 6rem;
 	letter-spacing: -1px;
 	line-height: 1;
-	margin-bottom: 20px;
+	margin: 1rem 0 1rem 0;
 	white-space: nowrap;
 }
 
@@ -169,6 +238,10 @@ pre code {
 	opacity: .8;
 }
 
+.hero-unit .btn {
+	text-shadow: none;
+}
+
 #overview .benefits {
 	font-size: 1rem;
 }
@@ -196,8 +269,7 @@ pre code {
 .quick-links {
 	line-height: 20px;
 	padding: 0;
-	margin: 2rem 0 0 0;
-
+	margin: 2rem 0 1rem 0;
 }
 
 .aside-muted {

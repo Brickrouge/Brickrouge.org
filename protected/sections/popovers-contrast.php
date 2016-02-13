@@ -40,7 +40,7 @@ echo new PopoverWidget([
 	Popover::ACTIONS => 'boolean',
 	PopoverWidget::VISIBLE => true,
 
-	'class' => 'popover fit-content contrast'
+	'class' => 'popover contrast'
 
 ]);
 

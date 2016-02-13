@@ -4,18 +4,27 @@ namespace App;
 
 use Brickrouge;
 
+/**
+ * @var View\Blocks $blocks
+ */
+
 ?>
 
 <div class="hero-unit">
 	<div class="container">
 		<h1>Calendar</h1>
 
-		<p class="lead">Brickrouge provides highly customizable and functional calendars, which are automatically
+		<div class="row">
+			<div class="col-lg-9">
+
+			<p class="lead">Brickrouge provides highly customizable and functional calendars, which are automatically
 		accessible to screen reader and keyboard only users.</p>
 
-		<p>Calendars are localized using the <a href="http://mootools.net/docs/more/Locale/Locale"
+			<p>Calendars are localized using the <a href="http://mootools.net/docs/more/Locale/Locale"
 		target="_blank">MooTools Locale interface</a>.</p>
 
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -357,3 +366,53 @@ EOT
 		</div>
 	</div>
 </section>
+
+<?php $blocks->begin() ?>
+<link rel="stylesheet" href="/assets/brickrouge/calendar.css" type="text/css" />
+<?php $blocks->end('css') ?>
+
+<?php $blocks->begin() ?>
+<script src="/assets/mootools-more.js" type="text/javascript"></script>
+<script src="/assets/brickrouge/calendar.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	window.addEvent('domready', function() {
+
+		new Brickrouge.Calendar('calendar-edit-date')
+
+		var month = new Brickrouge.Calendar.Month('standalone-calendar-month', { noWeekNumber: true })
+			, monthDebug = $('standalone-calendar-month-debug')
+
+		month.addEvents({
+
+			update: function(date) {
+
+				monthDebug.innerHTML = '<strong>update:</strong> ' + date.format('%Y-%m-%d')
+
+			},
+
+			change: function(date) {
+
+				monthDebug.innerHTML = '<strong>change:</strong> ' + date.format('%Y-%m-%d')
+
+			}
+		})
+
+		/* calendar-placeholder */
+
+		var calendar = Brickrouge.Calendar.from({ noWeekNumber: true, noDayNames: true })
+
+		calendar.element.inject('calendar-placeholder')
+
+		/* calendar-edit-month-year */
+
+		new Brickrouge.Calendar('calendar-edit-month-year')
+
+		/* popover */
+
+		new Brickrouge.Datepicker({ anchor: 'calendar-anchor' })
+	})
+
+</script>
+<?php $blocks->end('scripts') ?>

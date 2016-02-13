@@ -149,7 +149,7 @@
 
 /* calendar inside a popover */
 
-.popover.fit .popover-content {
+.popover.datepicker .popover-content {
 	padding: 0;
 }
 

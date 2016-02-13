@@ -1,7 +1,5 @@
 <section id="startup">
-	<div class="page-header">
-		<h1>Getting started</h1>
-	</div>
+	<h1>Getting started</h1>
 
 	<p>To start using <strong>Brickrouge</strong> you just have to install it
 	with <a href="http://getcomposer.com/" target="_blank">Composer</a>:</p>

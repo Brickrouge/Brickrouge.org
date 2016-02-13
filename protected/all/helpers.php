@@ -53,3 +53,8 @@ function display_example($filename)
 	echo '</div>';
  	display_source($filename);
 }
+
+function render_partial($partial, array $options = [])
+{
+	return \ICanBoogie\Render\render([ \ICanBoogie\Render\Renderer::OPTION_PARTIAL => $partial ] + $options);
+}

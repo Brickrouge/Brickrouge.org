@@ -1,9 +1,10 @@
 {
 	"minimum-stability": "dev",
 	"require": {
-		"icanboogie/icanboogie": "^3.0",
+		"icanboogie/icanboogie": "dev-php70 as 3.0",
 		"icanboogie/bind-view": "^0.8",
-		"brickrouge/brickrouge": "^3.0"
+		"brickrouge/brickrouge": "^3.0",
+		"erusev/parsedown": "^1.6"
 	},
 	"autoload": {
 		"psr-4": {
