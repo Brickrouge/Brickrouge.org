@@ -15,9 +15,18 @@ return [
 
 	],
 
-	'brickrouge-js' => [
+	'forms' => [
 
-		Route::PATTERN => '/brickrouge-js',
+		Route::PATTERN => '/forms',
+		Route::CONTROLLER => PageController::class,
+
+		'title' => "Forms"
+
+	],
+
+	'widgets' => [
+
+		Route::PATTERN => '/widgets',
 		Route::CONTROLLER => PageController::class,
 
 		'title' => "Widgets"

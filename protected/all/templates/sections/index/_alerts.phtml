@@ -4,15 +4,15 @@
 	<div class="row">
 		<div class="col-lg-4">
 			<h3>Error or danger</h3>
-			<?php display_example('alerts-danger'); ?>
+			<?= render_example('examples/alerts/danger') ?>
 		</div>
 		<div class="col-lg-4">
 			<h3>Success</h3>
-			<?php display_example('alerts-success'); ?>
+			<?= render_example('examples/alerts/success') ?>
 		</div>
 		<div class="col-lg-4">
 			<h3>Information</h3>
-			<?php display_example('alerts-info'); ?>
+			<?= render_example('examples/alerts/info') ?>
 		</div>
 	</div>
 
@@ -27,7 +27,7 @@
 
 		<div class="col-lg-8">
 			<p>The <code>HEADING</code> attribute may be used to define a heading.</p>
-			<?php display_example('alerts-block'); ?>
+			<?= render_example('examples/alerts/block') ?>
 		</div>
 	</div>
 
@@ -39,15 +39,12 @@
 		</div>
 
 		<div class="col-lg-8">
-			<?php display_example('alerts-dismissible'); ?>
+			<?= render_example('examples/alerts/dismissible') ?>
 		</div>
 	</div>
 
 	<h2>Error collections</h2>
 
-	<div class="row">
-	<span class="col-lg-12">
 	<p>The <code>Alert</code> class can also render <code>ErrorCollection</code> instances.</p>
-	<?php display_example('alerts-errors'); ?>
-	</span>
+	<?= render_example('examples/alerts/errors') ?>
 </section>

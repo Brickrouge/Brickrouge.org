@@ -384,19 +384,16 @@ EOT
 		var month = new Brickrouge.Calendar.Month('standalone-calendar-month', { noWeekNumber: true })
 			, monthDebug = $('standalone-calendar-month-debug')
 
-		month.addEvents({
+		month.observe('update', function (date) {
 
-			update: function(date) {
+			monthDebug.innerHTML = '<strong>update:</strong> ' + date.format('%Y-%m-%d')
 
-				monthDebug.innerHTML = '<strong>update:</strong> ' + date.format('%Y-%m-%d')
+		})
 
-			},
+		month.observe('change', function (date) {
 
-			change: function(date) {
+			monthDebug.innerHTML = '<strong>change:</strong> ' + date.format('%Y-%m-%d')
 
-				monthDebug.innerHTML = '<strong>change:</strong> ' + date.format('%Y-%m-%d')
-
-			}
 		})
 
 		/* calendar-placeholder */

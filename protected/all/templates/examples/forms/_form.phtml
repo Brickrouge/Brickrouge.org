@@ -1,0 +1,117 @@
+<?php
+
+namespace Brickrouge;
+
+$form = new Form([
+
+	Form::VALUES => $_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : [
+
+		'email' => 'invalid-email',
+		'url' => 'invalid-url',
+		'birthday' => '2016-01-OI',
+		'length-between' => 'abcdefg',
+		'checkbox-group' => [ 2 => 'on' ],
+		'radio-group' => 2
+
+	],
+
+	Form::RENDERER => Form\GroupRenderer::class,
+	Form::ACTIONS => [
+
+		new Button('Submit', [
+
+			'type' => 'submit',
+			'class' => 'btn-primary'
+
+		])
+
+	],
+
+	Element::CHILDREN => [
+
+		'required' => new Text([
+
+			Group::LABEL => 'Required value',
+			Element::REQUIRED => true
+
+		]),
+
+		'email' => new Text([
+
+			Group::LABEL => 'Email',
+			Element::VALIDATION => 'email',
+			Element::DESCRIPTION => "Validated with <code>Email</code>."
+
+		]),
+
+		'email_required' => new Text([
+
+			Group::LABEL => 'Required Email',
+			Element::REQUIRED => true,
+			Element::VALIDATION => 'email',
+			Element::DESCRIPTION => "Because it is <em>required</em>, the value is only validated when specified."
+
+		]),
+
+		'url' => new Text([
+
+			Group::LABEL => 'URL',
+			Element::VALIDATION => 'url',
+			Element::DESCRIPTION => "Validated with <code>URL</code>."
+
+		]),
+
+		'birthday' => new Text([
+
+			Group::LABEL => 'Date',
+			Element::VALIDATION => 'regex:/^\d{4}-\d{2}-\d{2}$/',
+			Element::INLINE_HELP => 'YYYY-MM-DD',
+			Element::DESCRIPTION => "Validated with <code>Regex</code>."
+
+		]),
+
+		'length-between' => new Text([
+
+			Group::LABEL => 'Length min/max',
+			Element::VALIDATION => 'between-length:3;6',
+			Element::INLINE_HELP => 'Between 3 and 6 characters',
+			Element::DESCRIPTION => "Validated with <code>BetweenLength</code>."
+
+		]),
+
+		'checkbox-group' => new Element(Element::TYPE_CHECKBOX_GROUP, [
+
+			Group::LABEL => "Checkbox group",
+			Element::OPTIONS => [
+
+				1 => "Option 1",
+				"Option 2, which should initially be checked",
+				"Option 3"
+
+			]
+
+		]),
+
+		'radio-group' => new Element(Element::TYPE_RADIO_GROUP, [
+
+			Group::LABEL => "Radio group",
+			Element::OPTIONS => [
+
+				1 => "Option 1",
+				"Option 2, which should initially be checked",
+				"Option 3"
+
+			]
+
+		])
+
+	],
+
+	'action' => '#form-example',
+	'id' => 'form-example'
+
+]);
+
+$form->validate();
+
+echo $form;

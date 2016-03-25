@@ -178,24 +178,21 @@ Brickrouge.Calendar = new Class({
 
 		})
 
-		this.month.addEvents({
+		this.month.observe('update', function (date) {
 
-			update: function(date) {
+			this.renderMonthName(date)
+			this.renderYearName(date)
+			this.fireUpdate(date)
 
-				this.renderMonthName(date)
-				this.renderYearName(date)
-				this.fireUpdate(date)
+		}.bind(this))
 
-			}.bind(this),
+		this.month.observe('change', function (date) {
 
-			change: function(date) {
+			this.renderMonthName(date)
+			this.renderYearName(date)
+			this.fireChange(date)
 
-				this.renderMonthName(date)
-				this.renderYearName(date)
-				this.fireChange(date)
-
-			}.bind(this)
-		})
+		}.bind(this))
 
 		this.setDate(this.options.date || 'now')
 	},
@@ -321,7 +318,7 @@ Brickrouge.Calendar = new Class({
 
 	focus: function()
 	{
-		this.element.getElement('[tabindex]').focus()
+		this.element.querySelector('[tabindex]').focus()
 	}
 })
 
@@ -393,256 +390,279 @@ Brickrouge.Calendar.from = function(options)
 	return new Brickrouge.Calendar(el, options)
 }
 
-/**
- * A calendar month.
- *
- * @property element Element The container element.
- * @property date Date A date in the month to render.
- * @property now Date Current date at the initialization of the object.
- * @property options
- */
-Brickrouge.Calendar.Month = new Class({
+!function (Brickrouge) {
 
-	Implements: [ Options, Events ],
-
-	options: {
-
-		date: null,
-		dontFollowOverlap: false,
-		noWeekNumber: false,
-		noInput: false
-
-	},
+	const NOTIFY_UPDATE = 'update'
+	const NOTIFY_CHANGE = 'change'
 
 	/**
-	 * Initialize the {@link element} and {@link now} properties.
+	 * A calendar month.
 	 *
-	 * If the `dontFollowOverlap` option is not true an event is added to the element to follow
-	 * overlap days.
-	 *
-	 * @param el Element|string If the container element is a `TABLE` its `TBODY` element is used
-	 * instead.
-	 *
-	 * @param options
+	 * @property element Element The container element.
+	 * @property date Date A date in the month to render.
+	 * @property now Date Current date at the initialization of the object.
+	 * @property options
 	 */
-	initialize: function(el, options)
-	{
-		this.element = document.id(el)
+	Brickrouge.Calendar.Month = new Class({
 
-		if (this.element.tagName == 'TABLE')
+		Implements: [ Options, Brickrouge.Subject ],
+
+		options: {
+
+			date: null,
+			dontFollowOverlap: false,
+			noWeekNumber: false,
+			noInput: false
+
+		},
+
+		/**
+		 * Initialize the {@link element} and {@link now} properties.
+		 *
+		 * If the `dontFollowOverlap` option is not true an event is added to the element to follow
+		 * overlap days.
+		 *
+		 * @param {Element|string} el If the container element is a `TABLE` its `TBODY` element is used
+		 * instead.
+		 *
+		 * @param options
+		 */
+		initialize: function(el, options)
 		{
-			this.element = this.element.getElement('tbody')
-		}
+			this.element = document.id(el)
 
-		this.setOptions(options)
-		this.now = new Date()
-		this.date = null
+			if (this.element.tagName == 'TABLE')
+			{
+				this.element = this.element.querySelector('tbody')
+			}
 
-		this.element.addEvents({
+			this.setOptions(options)
+			this.now = new Date()
+			this.date = null
 
-			'click:relay(.calendar-day)': function(ev, el) {
+			this.element.addEvents({
 
-				this.element.focus()
+				'click:relay(.calendar-day)': function(ev, el) {
 
-				if (!this.options.dontFollowOverlap && el.hasClass('overlap'))
-				{
-					this.setDate(el.get('data-date'))
-					this.fireUpdate(this.date, el)
+					this.element.focus()
 
-					return
-				}
+					if (!this.options.dontFollowOverlap && el.classList.contains('overlap'))
+					{
+						this.setDate(el.getAttribute('data-date'))
+						this.fireUpdate(this.date, el)
 
-				if (!this.options.noInput && !el.hasClass('disabled'))
-				{
-					this.setDate(el.get('data-date'))
-					this.fireChange(this.date, el)
-				}
+						return
+					}
 
-			}.bind(this),
+					if (!this.options.noInput && !el.classList.contains('disabled'))
+					{
+						this.setDate(el.getAttribute('data-date'))
+						this.fireChange(this.date, el)
+					}
 
-			keydown: this.onKeyDown.bind(this),
+				}.bind(this),
 
-			keypress: this.onKeyPress.bind(this)
-		})
+				keydown: this.onKeyDown.bind(this),
 
-		this.setDate(this.options.date || this.now)
-	},
+				keypress: this.onKeyPress.bind(this)
+			})
 
-	onKeyDown: function(ev)
-	{
-		var date = null, unit = 'day'
+			this.setDate(this.options.date || this.now)
+		},
 
-		if (ev.alt)
+		onKeyDown: function(ev)
 		{
-			unit = 'year'
-		}
-		else if (ev.shift)
+			var date = null, unit = 'day'
+
+			if (ev.alt)
+			{
+				unit = 'year'
+			}
+			else if (ev.shift)
+			{
+				unit = 'month'
+			}
+
+			switch (ev.key)
+			{
+				case 'left':
+					date = Date.from(this.date).decrement(unit, 1)
+					break
+				case 'right':
+					date = Date.from(this.date).increment(unit, 1)
+					break
+				case 'up':
+					date = Date.from(this.date).decrement('day', 7)
+					break
+				case 'down':
+					date = Date.from(this.date).increment('day', 7)
+					break
+				case 'pageup':
+					date = Date.from(this.date).decrement(ev.shift ? 'year' : 'month', 1)
+					break
+				case 'pagedown':
+					date = Date.from(this.date).increment(ev.shift ? 'year' : 'month', 1)
+					break
+			}
+
+			if (date)
+			{
+				ev.stop()
+				this.setDate(date)
+				this.fireUpdate(this.date)
+			}
+		},
+
+		onKeyPress: function(ev)
 		{
-			unit = 'month'
-		}
+			var date = null
 
-		switch (ev.key)
+			switch (ev.key)
+			{
+				case 't':
+					date = new Date()
+					break
+				case 'm':
+				case 'y':
+					date = Date.from(this.date)[ev.shift ? 'decrement' : 'increment'](ev.key == 'm' ? 'month' : 'year', ev.alt ? 10 : 1)
+					break
+				case 'enter':
+				case 'space':
+					this.fireChange(this.date)
+					break
+			}
+
+			if (date)
+			{
+				ev.stop()
+				this.setDate(date)
+				this.fireUpdate(this.date)
+			}
+		},
+
+		/**
+		 * Fires `NOTIFY_UPDATE` with the specified arguments.
+		 *
+		 * @protected
+		 */
+		fireUpdate: function()
 		{
-			case 'left':
-				date = Date.from(this.date).decrement(unit, 1)
-				break
-			case 'right':
-				date = Date.from(this.date).increment(unit, 1)
-				break
-			case 'up':
-				date = Date.from(this.date).decrement('day', 7)
-				break
-			case 'down':
-				date = Date.from(this.date).increment('day', 7)
-				break
-			case 'pageup':
-				date = Date.from(this.date).decrement(ev.shift ? 'year' : 'month', 1)
-				break
-			case 'pagedown':
-				date = Date.from(this.date).increment(ev.shift ? 'year' : 'month', 1)
-				break
-		}
+			this.notify(NOTIFY_UPDATE, arguments)
+		},
 
-		if (date)
+		/**
+		 * Fires `NOTIFY_CHANGE` with the specified arguments.
+		 *
+		 * @protected
+		 */
+		fireChange: function()
 		{
-			ev.stop()
-			this.setDate(date)
-			this.fireUpdate(this.date)
-		}
-	},
+			this.notify(NOTIFY_CHANGE, arguments)
+		},
 
-	onKeyPress: function(ev)
-	{
-		var date = null
-
-		switch (ev.key)
+		setDate: function(date)
 		{
-			case 't':
-				date = new Date()
-				break
-			case 'm':
-			case 'y':
-				date = Date.from(this.date)[ev.shift ? 'decrement' : 'increment'](ev.key == 'm' ? 'month' : 'year', ev.alt ? 10 : 1)
-				break
-			case 'enter':
-			case 'space':
-				this.fireChange(this.date)
-				break
-		}
+			this.date = Date.from(date)
+			this.render(this.date)
+		},
 
-		if (date)
+		render: function(date)
 		{
-			ev.stop()
-			this.setDate(date)
-			this.fireUpdate(this.date)
-		}
-	},
+			var day = date.getDate()
+			, start = Date.from(date).decrement('day', day - 1)
+			, overlap = start.format('%w')
+			, weeks = []
+			, i
 
-	fireUpdate: function()
-	{
-		this.fireEvent('update', arguments)
-	},
+			if (overlap == 0) overlap = 7
+			overlap--
 
-	fireChange: function()
-	{
-		this.fireEvent('change', arguments)
-	},
+			start.decrement('day', overlap)
 
-	setDate: function(date)
-	{
-		this.date = Date.from(date)
-		this.render(this.date)
-	},
+			i = Math.ceil((overlap + date.get('lastdayofmonth')) / 7)
 
-	render: function(date)
-	{
-		var day = date.getDate()
-		, start = Date.from(date).decrement('day', day - 1)
-		, overlap = start.format('%w')
-		, weeks = []
-		, i = 0
+			while (i--)
+			{
+				weeks.push(this.renderWeek(start))
+			}
 
-		if (overlap == 0) overlap = 7
-		overlap--
+			Brickrouge.empty(this.element)
 
-		start.decrement('day', overlap)
+			weeks.forEach(function (week) {
 
-		i = Math.ceil((overlap + date.get('lastdayofmonth')) / 7)
+				this.appendChild(week)
 
-		while (i--)
+			}.bind(this.element))
+		},
+
+		renderWeek: function(date)
 		{
-			weeks.push(this.renderWeek(start))
-		}
+			var days = []
+			, i = 7
+			, num = date.format('%U')
+			, row = new Element('tr.calendar-week')
 
-		this.element.empty()
-		this.element.adopt(weeks)
-	},
+			while (i--)
+			{
+				days.push(this.renderDay(date))
 
-	renderWeek: function(date)
-	{
-		var days = []
-		, i = 7
-		, num = date.format('%U')
-		, row = new Element('tr.calendar-week')
+				date.increment('day', 1)
+			}
 
-		//num = date.getWeek()
+			if (!this.options.noWeekNumber)
+			{
+				row.adopt(new Element('td.calendar-weeknum', { html: num }))
+			}
 
-		while (i--)
+			row.adopt(days)
+
+			return row
+		},
+
+		renderDay: function(date)
 		{
-			days.push(this.renderDay(date))
+			var formattedDate = date.format('%Y-%m-%d')
+			, i = date.format('%w')
+			, el = new Element('td.calendar-day', {
 
-			date.increment('day', 1)
+				html: date.format('%d').toInt(),
+				'data-date': formattedDate
+
+			})
+
+			if (i == 0 || i == 6)
+			{
+				el.classList.add('weekend')
+			}
+
+			if (date.getMonth() != this.date.getMonth())
+			{
+				el.classList.add('overlap')
+			}
+
+			if (formattedDate == this.now.format('%Y-%m-%d'))
+			{
+				el.classList.add('today')
+			}
+
+			if (formattedDate == this.date.format('%Y-%m-%d'))
+			{
+				el.classList.add('active')
+			}
+
+			return el
 		}
+	})
 
-		if (!this.options.noWeekNumber)
-		{
-			row.adopt(new Element('td.calendar-weeknum', { html: num }))
-		}
+	Brickrouge.Calendar.Month.NOTIFY_CHANGE = NOTIFY_CHANGE
+	Brickrouge.Calendar.Month.NOTIFY_UPDATE = NOTIFY_UPDATE
 
-		row.adopt(days)
-
-		return row
-	},
-
-	renderDay: function(date)
-	{
-		var formattedDate = date.format('%Y-%m-%d')
-		, i = date.format('%w')
-		, el = new Element('td.calendar-day', {
-
-			html: date.format('%d').toInt(),
-			'data-date': formattedDate
-
-		})
-
-		if (i == 0 || i == 6)
-		{
-			el.addClass('weekend')
-		}
-
-		if (date.getMonth() != this.date.getMonth())
-		{
-			el.addClass('overlap')
-		}
-
-		if (formattedDate == this.now.format('%Y-%m-%d'))
-		{
-			el.addClass('today')
-		}
-
-		if (formattedDate == this.date.format('%Y-%m-%d'))
-		{
-			el.addClass('active')
-		}
-
-		return el
-	}
-})
+} (Brickrouge)
 
 /**
  * A date editor.
  *
- * The editor can be configurer to edit a year, a month or a date (year, month, day).
+ * The editor can be configured to edit a year, a month or a date (year, month, day).
  *
  * @property yearControl Element The input element used to edit the year.
  * @property monthControl Element The input element used to edit the month.
@@ -811,8 +831,6 @@ Brickrouge.Calendar.Editor = new Class({
 
 	show: function()
 	{
-		console.log('show calendar:', this, this.popover)
-
 		this.popover.show()
 	},
 
@@ -856,7 +874,7 @@ Brickrouge.Datepicker = new Class({
 
 		})
 
-		popover.element.addClass('datepicker')
+		popover.element.classList.add('datepicker')
 
 		calendar.addEvent('change', function(date) {
 
@@ -988,7 +1006,7 @@ Brickrouge.Datepicker.opened = []
  */
 Brickrouge.Datepicker.closeAll = function()
 {
-	Brickrouge.Datepicker.opened.each(function(datepicker) {
+	Brickrouge.Datepicker.opened.forEach(function(datepicker) {
 
 		datepicker.hide()
 
@@ -998,32 +1016,40 @@ Brickrouge.Datepicker.closeAll = function()
 /*
  * All opened calendars are closed when a click event occurs outside of a calendar.
  */
-document.body.addEvent('click', function(ev) {
+document.body.addEventListener('click', function(ev) {
 
 	var target = ev.target
-	, calendar = target.getParent('.calendar')
+	, calendar = target.closest('.calendar')
 
-	if ((calendar && calendar.getParent('.popover')) || (target.getParent('.calendar-editor'))) return
+	if ((calendar && calendar.closest('.popover')) || (target.closest('.calendar-editor'))) return
 
 	Brickrouge.Datepicker.closeAll()
 
 })
 
-/**
- * Automatically attach datepickers to elements matching `[data-editor="datepicker"]`
- * when they are clicked or gain the focus.
- *
- * The datepicker is automatically opened after it has been attached.
- */
-document.body.addEvent('focus:relay([data-editor="datepicker"])', function (ev, target)
-{
-	var datepicker = target.retrieve('datepicker')
+!function (Brickrouge) {
 
-	if (datepicker) return
+	var instances = []
 
-	datepicker = new Brickrouge.Datepicker(Object.append({ anchor: target }, target.get('dataset')))
+	/**
+	 * Automatically attach date pickers to elements matching `[data-editor="datepicker"]`
+	 * when they are clicked or gain the focus.
+	 *
+	 * The date picker is automatically opened after it has been attached.
+	 */
+	document.body.addDelegatedEventListener('[data-editor="datepicker"]', 'focus', function (ev, target) {
 
-	target.store('datepicker', datepicker)
+		var uid = Brickrouge.uidOf(target)
+		, picker
 
-	datepicker.show()
-})
+		if (uid in instances) return
+
+		picker = new Brickrouge.Datepicker(Object.assign({ anchor: target }, Brickrouge.Dataset.from(target)))
+
+		instances[uid] = picker
+
+		picker.show()
+
+	}, true)
+
+} (Brickrouge)

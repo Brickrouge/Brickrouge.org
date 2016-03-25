@@ -4,12 +4,6 @@ namespace Brickrouge;
 
 echo new Form([
 
-	Form::ACTIONS => [
-
-		new Button("Submit", [ 'type' => 'submit', 'class' => 'btn-primary' ])
-
-	],
-
 	Form::RENDERER => Form\GroupRenderer::class,
 
 	Element::CHILDREN => [

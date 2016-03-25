@@ -2,6 +2,10 @@
 
 namespace App;
 
+/**
+ * @var $blocks View\Blocks
+ */
+
 ?>
 
 <div id="overview" class="hero-unit">
@@ -53,14 +57,28 @@ namespace App;
 </div>
 
 <div class="container">
-
-<?php require ROOT . 'protected/sections/getting-started.php' ?>
-<?php //require ROOT . 'protected/sections/form.php' ?>
-<?php require ROOT . 'protected/sections/forms.php' ?>
-<?php require ROOT . 'protected/sections/groups.php' ?>
-<?php require ROOT . 'protected/sections/popovers.php' ?>
-<?php require ROOT . 'protected/sections/buttons.php' ?>
-<?php require ROOT . 'protected/sections/splitbutton.php' ?>
-<?php require ROOT . 'protected/sections/alerts.php' ?>
-
+	<section><?= render_partial('sections/index/alpha') ?></section>
+	<section><?= render_partial('sections/index/getting-started') ?></section>
+	<?= render_partial('sections/index/forms') ?>
+	<?= render_partial('sections/index/groups') ?>
+	<?= render_partial('sections/index/popovers') ?>
+	<?= render_partial('sections/index/buttons') ?>
+	<?= render_partial('sections/index/splitbutton') ?>
+	<?= render_partial('sections/index/alerts') ?>
 </div>
+
+<?php $blocks->begin() ?>
+<script type="text/javascript">
+
+document.body.addDelegatedEventListener('.dropdown-item', 'click', function (ev, item) {
+
+	if (item.getAttribute('href') !== '#') {
+		return
+	}
+
+	ev.preventDefault()
+
+})
+
+</script>
+<?php $blocks->end('scripts') ?>

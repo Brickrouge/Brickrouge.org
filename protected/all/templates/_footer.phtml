@@ -23,10 +23,6 @@
 
 	hljs.initHighlightingOnLoad()
 
-	$$('.dropdown-menu li').addEvent('click', function (ev) {
-		ev.preventDefault()
-	})
-
 	<?php if (PHP_SAPI !== 'cli-server'): ?>
 
 	var _gaq = _gaq || []

@@ -1,11 +1,26 @@
 <?php
 
+use ICanBoogie\Render\TemplateName;
+use ICanBoogie\Render\TemplateNotFound;
+
+use function ICanBoogie\Render\get_template_resolver;
+use function ICanBoogie\Render\get_engines;
+
 function resolve_filename($filename)
 {
 	if (file_exists($filename))
 	{
 		return $filename;
 	}
+
+	$resolved = get_template_resolver()->resolve(TemplateName::from($filename)->as_partial, get_engines()->extensions, $tried);
+
+	if (!$resolved)
+	{
+		throw new TemplateNotFound("Template not found for `$filename`.", $tried);
+	}
+
+	return $resolved;
 
 	$trace = debug_backtrace();
 
@@ -57,4 +72,31 @@ function display_example($filename)
 function render_partial($partial, array $options = [])
 {
 	return \ICanBoogie\Render\render([ \ICanBoogie\Render\Renderer::OPTION_PARTIAL => $partial ] + $options);
+}
+
+function render_demo($filename)
+{
+	ob_start();
+
+	display_demo($filename);
+
+	return ob_get_clean();
+}
+
+function render_source($filename)
+{
+	ob_start();
+
+	display_source($filename);
+
+	return ob_get_clean();
+}
+
+function render_example($filename)
+{
+	ob_start();
+
+	display_example($filename);
+
+	return ob_get_clean();
 }

@@ -3,7 +3,10 @@
 	"require": {
 		"icanboogie/icanboogie": "dev-php70 as 3.0",
 		"icanboogie/bind-view": "^0.8",
+		"icanboogie/validate": "dev-master",
+		"icanboogie/render-engine-markdown": "dev-master",
 		"brickrouge/brickrouge": "^3.0",
+		"brickrouge/bind-icanboogie-validate": "dev-master",
 		"erusev/parsedown": "^1.6"
 	},
 	"autoload": {

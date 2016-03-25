@@ -1,0 +1,59 @@
+<?php
+
+namespace Brickrouge;
+
+use ICanBoogie\Render\Renderer;
+
+/**
+ * @var $blocks \App\View\Blocks
+ * @var $markdown \App\View\Markdown
+ */
+
+?>
+
+<div class="hero-unit">
+	<div class="container">
+		<h1>Brick<span>rouge</span>.js</h1>
+
+		<div class="row">
+			<div class="col-lg-9">
+				<p class="lead">Create interoperable custom elements—or widgets—from HTML elements
+				without delay, bump, or refresh.</p>
+
+				<p>Brickrouge.js is included and built upon by Brickrouge to provide additional
+				features and builtin widgets such as Popovers and Calendars.</p>
+
+				<p><a href="https://github.com/Brickrouge/Brickrouge.js" class="btn btn-secondary" target="_blank">Brickrouge.js on GitHub</a></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+
+<section>
+	<?= render_partial('sections/widgets/demo') ?>
+
+	<div class="doc-example">
+
+		<?= render_partial('examples/widget-html') ?>
+
+	</div>
+
+	<pre style="max-height: 32em"><code class="lang-html">
+<?= str_replace("\t", '    ', escape(render_partial('examples/widget-html'))) ?>
+
+<?= str_replace("\t", '    ', escape(render_partial('examples/widget-js'))) ?>
+</code></pre>
+
+</section>
+
+<section><?= render_partial('sections/widgets/running') ?></section>
+<section><?= render_partial('sections/widgets/events') ?></section>
+<section><?= render_partial('sections/widgets/helpers') ?></section>
+
+</div>
+
+<?php $blocks->begin() ?>
+<?= render_partial('examples/widget-js') ?>
+<?php $blocks->end('scripts') ?>

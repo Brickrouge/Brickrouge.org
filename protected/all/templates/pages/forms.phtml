@@ -1,0 +1,62 @@
+<?php
+
+namespace Brickrouge;
+
+/**
+ * @var $blocks \App\View\Blocks
+ * @var $markdown \App\View\Markdown
+ */
+
+?>
+
+<div class="hero-unit">
+	<div class="container">
+		<h1>Forms</h1>
+
+		<div class="row">
+			<div class="col-lg-9">
+				<p class="lead">Create complex forms in a few lines of code.</p>
+
+				<p>Brickrouge can create fully-functional forms in a few lines of code,
+				and handles populating, validation, and rendering. And yes,
+				you can use your favorite validation library.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+
+	<section>
+		<?= render_partial('sections/forms/populating_and_validating') ?>
+		<?= render_example('examples/forms/form') ?>
+	</section>
+
+	<section>
+		<?= render_partial('sections/forms/validating') ?>
+		<?= render_partial('sections/forms/states') ?>
+		<?= render_example('examples/forms/validation') ?>
+	</section>
+
+	<section><?= render_partial('sections/forms/validation-engine') ?></section>
+	<section>
+		<?= render_partial('sections/forms/traversing') ?>
+
+		<div class="alert alert-info"><?php
+
+			/* @var $form \Brickrouge\Form */
+
+			ob_start();
+			require \App\ROOT . 'protected/all/templates/examples/forms/_form.phtml';
+			ob_end_clean();
+
+			foreach ($form as $element)
+			{
+				printf("%s `%s`.\n", $element[Group::LABEL], $element['name']);
+			}
+
+		?></div>
+	</section>
+
+	<section><?= render_partial('sections/forms/disabling') ?></section>
+</div>
