@@ -27,16 +27,6 @@ Locale.define('fr', 'Popover', {
 Locale.getCurrent().define('Date', 'firstDayOfWeek', 1); // Monday
 
 /**
- * Defines the 'pageup' key for the event code 33.
- */
-DOMEvent.defineKey(33, 'pageup')
-
-/**
- * Defines the 'pagedown' key for the event code 34.
- */
-DOMEvent.defineKey(34, 'pagedown')
-
-/**
  * Creates a Date object from different source types.
  *
  * @param source
@@ -200,101 +190,99 @@ Date.prototype.getWeek = function () {
 			this.now = new Date()
 			this.date = null
 
-			this.element.addEvents({
-
-				'click:relay(.calendar-day)': function(ev, el) {
-
-					this.element.focus()
-
-					if (!this.options.dontFollowOverlap && el.classList.contains('overlap'))
-					{
-						this.setDate(el.getAttribute('data-date'))
-						this.notifyUpdate(this.date)
-
-						return
-					}
-
-					if (!this.options.noInput && !el.classList.contains('disabled'))
-					{
-						this.setDate(el.getAttribute('data-date'))
-						this.notifyChange(this.date)
-					}
-
-				}.bind(this),
-
-				keydown: this.onKeyDown.bind(this),
-
-				keypress: this.onKeyPress.bind(this)
-			})
+			this.element.addDelegatedEventListener('.calendar-day', 'click', this.onCalendarDayClick.bind(this))
+			this.element.addEventListener('keydown', this.onKeyDown.bind(this), true)
 
 			this.setDate(this.options.date || this.now)
 		}
 
+		/**
+		 * A day was clicked.
+		 *
+		 * @param {MouseEvent} ev
+		 * @param {Element} el
+		 */
+		onCalendarDayClick(ev, el)
+		{
+			this.element.focus()
+
+			if (!this.options.dontFollowOverlap && el.classList.contains('overlap'))
+			{
+				this.setDate(el.getAttribute('data-date'))
+				this.notifyUpdate(this.date)
+
+				return
+			}
+
+			if (!this.options.noInput && !el.classList.contains('disabled'))
+			{
+				this.setDate(el.getAttribute('data-date'))
+				this.notifyChange(this.date)
+			}
+		}
+
+		/**
+		 * @param {KeyboardEvent} ev
+		 */
 		onKeyDown(ev)
 		{
-			var date = null, unit = 'day'
+			let date = null
+			let unit = 'day'
 
-			if (ev.alt)
+			if (ev.altKey)
 			{
 				unit = 'year'
 			}
-			else if (ev.shift)
+			else if (ev.shiftKey)
 			{
 				unit = 'month'
 			}
 
 			switch (ev.key)
 			{
-				case 'left':
+				case 'ArrowLeft':
 					date = Date.from(this.date).decrement(unit, 1)
 					break
-				case 'right':
+				case 'ArrowRight':
 					date = Date.from(this.date).increment(unit, 1)
 					break
-				case 'up':
+				case 'ArrowUp':
 					date = Date.from(this.date).decrement('day', 7)
 					break
-				case 'down':
+				case 'ArrowDown':
 					date = Date.from(this.date).increment('day', 7)
 					break
-				case 'pageup':
-					date = Date.from(this.date).decrement(ev.shift ? 'year' : 'month', 1)
+				case 'PageUp':
+					date = Date.from(this.date).decrement(ev.shiftKey ? 'year' : 'month', 1)
 					break
-				case 'pagedown':
-					date = Date.from(this.date).increment(ev.shift ? 'year' : 'month', 1)
+				case 'PageDown':
+					date = Date.from(this.date).increment(ev.shiftKey ? 'year' : 'month', 1)
 					break
-			}
-
-			if (date)
-			{
-				ev.stop()
-				this.setDate(date)
-				this.notifyUpdate(this.date)
-			}
-		}
-
-		onKeyPress(ev)
-		{
-			var date = null
-
-			switch (ev.key)
-			{
 				case 't':
 					date = new Date()
 					break
-				case 'm':
-				case 'y':
-					date = Date.from(this.date)[ev.shift ? 'decrement' : 'increment'](ev.key == 'm' ? 'month' : 'year', ev.alt ? 10 : 1)
-					break
-				case 'enter':
-				case 'space':
+				case 'Enter':
+				case ' ':
 					this.notifyChange(this.date)
 					break
+				default:
+					switch (ev.code)
+					{
+						case 'KeyM':
+							date = Date.from(this.date)[ev.shiftKey ? 'decrement' : 'increment']('month', ev.altKey ? 10 : 1)
+							break
+						case 'KeyY':
+							date = Date.from(this.date)[ev.shiftKey ? 'decrement' : 'increment']('year', ev.altKey ? 10 : 1)
+							break
+						default:
+							return
+					}
 			}
 
-			if (date)
-			{
-				ev.stop()
+			ev.stopPropagation()
+			ev.preventDefault()
+
+			if (date) {
 				this.setDate(date)
 				this.notifyUpdate(this.date)
 			}
