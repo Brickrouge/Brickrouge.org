@@ -377,20 +377,20 @@ EOT
 
 <script type="text/javascript">
 
-	Brickrouge.observe(Brickrouge.EVENT_RUNNING, function () {
+	Brickrouge.observeRunning(ev => {
 
 		!function (Month) {
 
 			var monthDebug = document.getElementById('standalone-calendar-month-debug')
 			var month = new Month(document.getElementById('standalone-calendar-month'), { noWeekNumber: true })
 
-			month.observe(Month.EVENT_UPDATE, function (ev) {
+			month.observeUpdate(ev => {
 
 				monthDebug.innerHTML = '<strong>update:</strong> ' + ev.date.format('%Y-%m-%d')
 
 			})
 
-			month.observe(Month.EVENT_CHANGE, function (ev) {
+			month.observeChange(ev => {
 
 				monthDebug.innerHTML = '<strong>change:</strong> ' + ev.date.format('%Y-%m-%d')
 

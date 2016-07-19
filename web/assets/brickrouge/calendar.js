@@ -404,6 +404,22 @@ Date.prototype.getWeek = function () {
 
 			return el
 		}
+
+		/**
+		 * @param {Function} callback
+		 */
+		observeChange(callback)
+		{
+			this.observe(ChangeEvent, callback)
+		}
+
+		/**
+		 * @param {Function} callback
+		 */
+		observeUpdate(callback)
+		{
+			this.observe(UpdateEvent, callback)
+		}
 	}
 
 	Object.defineProperties(Month, {
@@ -727,7 +743,7 @@ Date.prototype.getWeek = function () {
 
 			})
 
-			this.month.observe(Month.EVENT_UPDATE, function (ev) {
+			this.month.observeUpdate(ev => {
 
 				let date = ev.date
 
@@ -735,9 +751,9 @@ Date.prototype.getWeek = function () {
 				this.renderYearName(date)
 				this.notifyUpdate(date)
 
-			}.bind(this))
+			})
 
-			this.month.observe(Month.EVENT_CHANGE, function (ev) {
+			this.month.observeChange(ev => {
 
 				let date = ev.date
 
@@ -745,7 +761,7 @@ Date.prototype.getWeek = function () {
 				this.renderYearName(date)
 				this.notifyChange(date)
 
-			}.bind(this))
+			})
 
 			this.setDate(this.options.date || 'now')
 		},
