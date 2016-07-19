@@ -155,6 +155,15 @@ Date.prototype.getWeek = function () {
 
 	})
 
+	const DEFAULT_OPTIONS = {
+
+		date: null,
+		dontFollowOverlap: false,
+		noWeekNumber: false,
+		noInput: false
+
+	}
+
 	/**
 	 * A calendar month.
 	 *
@@ -163,40 +172,31 @@ Date.prototype.getWeek = function () {
 	 * @property now Date Current date at the initialization of the object.
 	 * @property options
 	 */
-	let Month = new Class({
-
-		Implements: [ Options, Subject ],
-
-		options: {
-
-			date: null,
-			dontFollowOverlap: false,
-			noWeekNumber: false,
-			noInput: false
-
-		},
-
+	class Month extends Brickrouge.mixin(Object, Subject)
+	{
 		/**
 		 * Initialize the {@link element} and {@link now} properties.
 		 *
 		 * If the `dontFollowOverlap` option is not true an event is added to the element to follow
 		 * overlap days.
 		 *
-		 * @param {Element|string} el If the container element is a `TABLE` its `TBODY` element is used
+		 * @param {Element} el If the container element is a `TABLE` its `TBODY` element is used
 		 * instead.
 		 *
 		 * @param options
 		 */
-		initialize: function(el, options)
+		constructor(el, options)
 		{
-			this.element = document.id(el)
+			super()
+
+			this.element = el
+			this.options = Object.assign({}, DEFAULT_OPTIONS, options)
 
 			if (this.element.tagName == 'TABLE')
 			{
 				this.element = this.element.querySelector('tbody')
 			}
 
-			this.setOptions(options)
 			this.now = new Date()
 			this.date = null
 
@@ -228,9 +228,9 @@ Date.prototype.getWeek = function () {
 			})
 
 			this.setDate(this.options.date || this.now)
-		},
+		}
 
-		onKeyDown: function(ev)
+		onKeyDown(ev)
 		{
 			var date = null, unit = 'day'
 
@@ -271,9 +271,9 @@ Date.prototype.getWeek = function () {
 				this.setDate(date)
 				this.notifyUpdate(this.date)
 			}
-		},
+		}
 
-		onKeyPress: function(ev)
+		onKeyPress(ev)
 		{
 			var date = null
 
@@ -298,7 +298,7 @@ Date.prototype.getWeek = function () {
 				this.setDate(date)
 				this.notifyUpdate(this.date)
 			}
-		},
+		}
 
 		/**
 		 * Fires `NOTIFY_UPDATE` with the specified arguments.
@@ -307,10 +307,10 @@ Date.prototype.getWeek = function () {
 		 *
 		 * @param {Date} date
 		 */
-		notifyUpdate: function(date)
+		notifyUpdate(date)
 		{
 			this.notify(new UpdateEvent(date))
-		},
+		}
 
 		/**
 		 * Fires `NOTIFY_CHANGE` with the specified arguments.
@@ -319,18 +319,18 @@ Date.prototype.getWeek = function () {
 		 *
 		 * @param {Date} date
 		 */
-		notifyChange: function(date)
+		notifyChange(date)
 		{
 			this.notify(new ChangeEvent(date))
-		},
+		}
 
-		setDate: function(date)
+		setDate(date)
 		{
 			this.date = Date.from(date)
 			this.render(this.date)
-		},
+		}
 
-		render: function(date)
+		render(date)
 		{
 			var day = date.getDate()
 			, start = Date.from(date).decrement('day', day - 1)
@@ -357,9 +357,9 @@ Date.prototype.getWeek = function () {
 				this.appendChild(week)
 
 			}.bind(this.element))
-		},
+		}
 
-		renderWeek: function(date)
+		renderWeek(date)
 		{
 			var days = []
 			, i = 7
@@ -381,9 +381,9 @@ Date.prototype.getWeek = function () {
 			row.adopt(days)
 
 			return row
-		},
+		}
 
-		renderDay: function(date)
+		renderDay(date)
 		{
 			var formattedDate = date.format('%Y-%m-%d')
 			, i = date.format('%w')
@@ -416,7 +416,7 @@ Date.prototype.getWeek = function () {
 
 			return el
 		}
-	})
+	}
 
 	Object.defineProperties(Month, {
 

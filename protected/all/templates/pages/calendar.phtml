@@ -382,7 +382,7 @@ EOT
 		!function (Month) {
 
 			var monthDebug = document.getElementById('standalone-calendar-month-debug')
-			var month = new Month('standalone-calendar-month', { noWeekNumber: true })
+			var month = new Month(document.getElementById('standalone-calendar-month'), { noWeekNumber: true })
 
 			month.observe(Month.EVENT_UPDATE, function (ev) {
 
