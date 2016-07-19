@@ -1,7 +1,7 @@
 {
 	"minimum-stability": "dev",
 	"require": {
-		"icanboogie/icanboogie": "dev-php70 as 3.0",
+		"icanboogie/icanboogie": "^3.0",
 		"icanboogie/bind-view": "^0.8",
 		"icanboogie/validate": "dev-master",
 		"icanboogie/render-engine-markdown": "dev-master",

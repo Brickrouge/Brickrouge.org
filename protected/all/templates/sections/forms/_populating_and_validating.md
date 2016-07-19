@@ -21,9 +21,9 @@ echo $form;
 
 The following example demonstrates how a form can be created and validated with
 [ICanBoogie/Validate][], using the [Brickrouge/bind-icanboogie-validate][] package. An initial array
-or values is used to populate the form and showcase validation. A dismissible alert should be
-displayed with the validation errors, invalid elements should be highlighted.
-
+of values is used to populate the form and showcase validation. A dismissible alert should be
+displayed with the validation errors, and invalid elements should be highlighted. When the alert is
+dismissed invalid elements should return to a neutral state.
 
 [ICanBoogie/Validate]:                 https://github.com/ICanBoogie/Validate/
 [Brickrouge/bind-icanboogie-validate]: https://github.com/Brickrouge/bind-icanboogie-validate

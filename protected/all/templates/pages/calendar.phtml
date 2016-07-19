@@ -377,24 +377,32 @@ EOT
 
 <script type="text/javascript">
 
+	Brickrouge.observe(Brickrouge.EVENT_RUNNING, function () {
+
+		!function (Month) {
+
+			var monthDebug = document.getElementById('standalone-calendar-month-debug')
+			var month = new Month('standalone-calendar-month', { noWeekNumber: true })
+
+			month.observe(Month.EVENT_UPDATE, function (ev) {
+
+				monthDebug.innerHTML = '<strong>update:</strong> ' + ev.date.format('%Y-%m-%d')
+
+			})
+
+			month.observe(Month.EVENT_CHANGE, function (ev) {
+
+				monthDebug.innerHTML = '<strong>change:</strong> ' + ev.date.format('%Y-%m-%d')
+
+			})
+
+		} (Brickrouge.CalendarMonth)
+
+	})
+
 	window.addEvent('domready', function() {
 
-		new Brickrouge.Calendar('calendar-edit-date')
-
-		var month = new Brickrouge.Calendar.Month('standalone-calendar-month', { noWeekNumber: true })
-			, monthDebug = $('standalone-calendar-month-debug')
-
-		month.observe('update', function (date) {
-
-			monthDebug.innerHTML = '<strong>update:</strong> ' + date.format('%Y-%m-%d')
-
-		})
-
-		month.observe('change', function (date) {
-
-			monthDebug.innerHTML = '<strong>change:</strong> ' + date.format('%Y-%m-%d')
-
-		})
+		new Brickrouge.Calendar(document.getElementById('calendar-edit-date'))
 
 		/* calendar-placeholder */
 
@@ -404,7 +412,7 @@ EOT
 
 		/* calendar-edit-month-year */
 
-		new Brickrouge.Calendar('calendar-edit-month-year')
+		new Brickrouge.Calendar(document.getElementById('calendar-edit-month-year'))
 
 		/* popover */
 

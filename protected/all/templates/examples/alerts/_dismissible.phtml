@@ -2,6 +2,11 @@
 
 namespace Brickrouge;
 
+use ICanBoogie\ErrorCollection;
+
+$errors = (new ErrorCollection)
+	->add('input0', "The field <q>{label}</q> <code>{name}</code> is required.");
+
 echo new Form([
 
 	Element::CHILDREN => [
@@ -11,7 +16,7 @@ echo new Form([
 
 	],
 
-	Form::ERRORS => [ 'input0' => [ "The field <em>Required</em> is required." ] ],
+	Form::ERRORS => $errors,
 	Form::RENDERER => Form\GroupRenderer::class
 
 ]);

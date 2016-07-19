@@ -41,7 +41,7 @@ return [
 		'title' => 'Calendar'
 
 	],
-
+/*
 	'nav' => [
 
 		Route::PATTERN => '/nav',
@@ -50,7 +50,7 @@ return [
 		'title' => 'Navigation'
 
 	],
-
+*/
 	'autodoc' => [
 
 		Route::PATTERN => '/docs',

@@ -1,9 +1,9 @@
 ## Validation states
 
-The validation state of elements is defined by the `STATE` attribute, which is updated when their
-form is validated. Although form validation only uses `STATE_DANGER` for elements failing to
-validate, the following values are also available: `STATE_SUCCESS`, and `STATE_WARNING`. Of course,
-`null` clears the state.
+The state of elements is defined by the `STATE` attribute, which is updated when their form is
+validated. Although form validation only uses `STATE_DANGER` for elements failing to validate, the
+following values are also available: `STATE_SUCCESS`, and `STATE_WARNING`. Of course, `null` clears
+the state.
 
 ```php
 <?php

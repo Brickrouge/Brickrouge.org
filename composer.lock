@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c909419ced136c6c018b476a07d6381f",
-    "content-hash": "d7b37b8b8bb566782580651788d97df8",
+    "hash": "409176830545726ed1b462d4258eef1e",
+    "content-hash": "51a23311ce3204d9cde4b722ecd9d502",
     "packages": [
         {
             "name": "brickrouge/bind-icanboogie-validate",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Brickrouge/bind-icanboogie-validate.git",
-                "reference": "d122de000be9c47630279a5134ef902e5abdf9ea"
+                "reference": "30bb49ebae48186262f34088ce1b655eef0c0ab6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Brickrouge/bind-icanboogie-validate/zipball/d122de000be9c47630279a5134ef902e5abdf9ea",
-                "reference": "d122de000be9c47630279a5134ef902e5abdf9ea",
+                "url": "https://api.github.com/repos/Brickrouge/bind-icanboogie-validate/zipball/30bb49ebae48186262f34088ce1b655eef0c0ab6",
+                "reference": "30bb49ebae48186262f34088ce1b655eef0c0ab6",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 "form",
                 "validate"
             ],
-            "time": "2016-03-23 00:00:26"
+            "time": "2016-03-27 05:00:24"
         },
         {
             "name": "brickrouge/brickrouge",
@@ -65,22 +65,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Brickrouge/Brickrouge.git",
-                "reference": "5cc96b954b43efd0c137d0b66e1585ca41c3b225"
+                "reference": "1eab22b6a2568387559ab50a3a57fbac1474b66f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Brickrouge/Brickrouge/zipball/5cc96b954b43efd0c137d0b66e1585ca41c3b225",
-                "reference": "5cc96b954b43efd0c137d0b66e1585ca41c3b225",
+                "url": "https://api.github.com/repos/Brickrouge/Brickrouge/zipball/1eab22b6a2568387559ab50a3a57fbac1474b66f",
+                "reference": "1eab22b6a2568387559ab50a3a57fbac1474b66f",
                 "shasum": ""
             },
             "require": {
-                "icanboogie/common": "^1.2.2",
-                "icanboogie/prototype": "^2.3.0",
+                "icanboogie/common": "^1.3",
+                "icanboogie/errors": "^2.0",
+                "icanboogie/prototype": "^2.3",
                 "php": ">=5.5.0"
             },
             "require-dev": {
-                "icanboogie/errors": "^1.0.0",
-                "icanboogie/validate": "dev-master",
                 "olvlvl/filecache": "dev-master"
             },
             "type": "library",
@@ -119,7 +118,7 @@
                 "html",
                 "widget"
             ],
-            "time": "2016-03-02 12:05:13"
+            "time": "2016-07-12 21:24:56"
         },
         {
             "name": "erusev/parsedown",
@@ -649,17 +648,60 @@
             "time": "2015-12-22 09:22:17"
         },
         {
-            "name": "icanboogie/event",
-            "version": "v2.1.0",
+            "name": "icanboogie/errors",
+            "version": "2.0.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ICanBoogie/Event.git",
-                "reference": "2fd45a341d7943105c6f65c51256ee6f1fc3ec63"
+                "url": "https://github.com/ICanBoogie/Errors.git",
+                "reference": "98f64c3ad58258afa798753ddd33914e0971d63c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ICanBoogie/Event/zipball/2fd45a341d7943105c6f65c51256ee6f1fc3ec63",
-                "reference": "2fd45a341d7943105c6f65c51256ee6f1fc3ec63",
+                "url": "https://api.github.com/repos/ICanBoogie/Errors/zipball/98f64c3ad58258afa798753ddd33914e0971d63c",
+                "reference": "98f64c3ad58258afa798753ddd33914e0971d63c",
+                "shasum": ""
+            },
+            "require": {
+                "icanboogie/common": "^1.3",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Collects and render errors",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "errors"
+            ],
+            "time": "2016-06-21 20:15:47"
+        },
+        {
+            "name": "icanboogie/event",
+            "version": "v2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/Event.git",
+                "reference": "041194c6acd07fe6f50cc6a474e87f8ab23f2ebd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/Event/zipball/041194c6acd07fe6f50cc6a474e87f8ab23f2ebd",
+                "reference": "041194c6acd07fe6f50cc6a474e87f8ab23f2ebd",
                 "shasum": ""
             },
             "require": {
@@ -694,7 +736,7 @@
             "keywords": [
                 "event"
             ],
-            "time": "2016-01-02 03:02:49"
+            "time": "2016-06-21 21:08:22"
         },
         {
             "name": "icanboogie/http",
@@ -755,16 +797,16 @@
         },
         {
             "name": "icanboogie/icanboogie",
-            "version": "dev-php70",
+            "version": "3.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ICanBoogie/ICanBoogie.git",
-                "reference": "c0a0abaf492940a06999d51b1a684e7b5f617731"
+                "reference": "d4fe24574aaeef0d19357d6b393e07cfe7a50b66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ICanBoogie/ICanBoogie/zipball/c0a0abaf492940a06999d51b1a684e7b5f617731",
-                "reference": "c0a0abaf492940a06999d51b1a684e7b5f617731",
+                "url": "https://api.github.com/repos/ICanBoogie/ICanBoogie/zipball/d4fe24574aaeef0d19357d6b393e07cfe7a50b66",
+                "reference": "d4fe24574aaeef0d19357d6b393e07cfe7a50b66",
                 "shasum": ""
             },
             "require": {
@@ -775,7 +817,7 @@
                 "icanboogie/config": "^1.0.0",
                 "icanboogie/session": "dev-master",
                 "icanboogie/storage": "^2.0.0",
-                "php": ">=7.0",
+                "php": ">=5.5.0",
                 "psr/log": "^1.0.0"
             },
             "require-dev": {
@@ -832,20 +874,20 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-02-11 00:34:12"
+            "time": "2016-06-21 20:17:11"
         },
         {
             "name": "icanboogie/inflector",
-            "version": "v1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ICanBoogie/Inflector.git",
-                "reference": "e19c8df837fdafb3571df4fb94133bb69ccbce81"
+                "reference": "94ce86a4c4e229ebfb1a959e9094b385c0ff9a8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ICanBoogie/Inflector/zipball/e19c8df837fdafb3571df4fb94133bb69ccbce81",
-                "reference": "e19c8df837fdafb3571df4fb94133bb69ccbce81",
+                "url": "https://api.github.com/repos/ICanBoogie/Inflector/zipball/94ce86a4c4e229ebfb1a959e9094b385c0ff9a8e",
+                "reference": "94ce86a4c4e229ebfb1a959e9094b385c0ff9a8e",
                 "shasum": ""
             },
             "require": {
@@ -884,7 +926,7 @@
                 "singularize",
                 "underscore"
             ],
-            "time": "2015-11-03 11:03:27"
+            "time": "2016-07-02 11:14:17"
         },
         {
             "name": "icanboogie/prototype",
@@ -1175,16 +1217,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ICanBoogie/Validate.git",
-                "reference": "c956f6db1543468760ee01eafa19322b81bee79b"
+                "reference": "3f3fb7095a33997a71a07f77bba2b2fc1b40f6d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ICanBoogie/Validate/zipball/c956f6db1543468760ee01eafa19322b81bee79b",
-                "reference": "c956f6db1543468760ee01eafa19322b81bee79b",
+                "url": "https://api.github.com/repos/ICanBoogie/Validate/zipball/3f3fb7095a33997a71a07f77bba2b2fc1b40f6d7",
+                "reference": "3f3fb7095a33997a71a07f77bba2b2fc1b40f6d7",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "icanboogie/errors": "^2.0"
             },
             "type": "library",
             "autoload": {
@@ -1210,7 +1255,7 @@
                 "assert",
                 "validate"
             ],
-            "time": "2016-03-22 23:11:48"
+            "time": "2016-03-27 04:36:08"
         },
         {
             "name": "icanboogie/view",
@@ -1310,17 +1355,9 @@
         }
     ],
     "packages-dev": [],
-    "aliases": [
-        {
-            "alias": "3.0",
-            "alias_normalized": "3.0.0.0",
-            "version": "dev-php70",
-            "package": "icanboogie/icanboogie"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "icanboogie/icanboogie": 20,
         "icanboogie/validate": 20,
         "icanboogie/render-engine-markdown": 20,
         "brickrouge/bind-icanboogie-validate": 20

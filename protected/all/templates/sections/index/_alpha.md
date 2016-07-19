@@ -6,7 +6,7 @@ focuses on the following features:
 - [Bootstrap v4][] compatibility (also in alpha).
 - [Brickrouge.js][] compatibility.
 - JavaScript framework independence (farewell [MooTools](http://mootools.net/) ♥).
-- Opening the validation system.
+- Validating forms with your favorite validation library.
 - Finishing the [Calendar](/calendar) plugin.
 
 You are very welcome to contribute, either by [reporting issues](https://github.com/Brickrouge/Brickrouge/issues)

@@ -5,9 +5,12 @@
 The `widget` event is fired after a widget has been built.
 
 ```js
-Brickrouge.observe('widget', function(widget) {
+/**
+ * @param {Brickrouge.WidgetEvent} ev
+ */
+Brickrouge.observeWidget(ev => {
 
-    console.log('A widget has been built:', widget)
+    console.log('A widget has been built:', ev.widget)
 
 })
 ```
@@ -17,11 +20,14 @@ Brickrouge.observe('widget', function(widget) {
 The `update` event is fired after the DOM was updated.
 
 ```
-Brickrouge.observe('update', function(fragment, elements, widgets) {
+/**
+ * @param {Brickrouge.UpdateEvent} ev
+ */
+Brickrouge.observeUpdate(ev => {
 
-    console.log('This fragment updated the DOM:', fragment)
-    console.log('These elements are new widgets:', elements)
-    console.log('These widgets have been built:', widgets)
+    console.log('This fragment updated the DOM:', ev.fragment)
+    console.log('These elements are new widgets:', ev.elements)
+    console.log('These widgets have been built:', ev.widgets)
 
 })
 ```
@@ -33,7 +39,10 @@ Brickrouge.observe('update', function(fragment, elements, widgets) {
 The `running` event is fired after **Brickrouge** is ran.
 
 ```js
-Brickrouge.observe('running', function() {
+/**
+ * @param {Brickrouge.RunningEvent} ev
+ */
+Brickrouge.observeRunning(ev => {
 
     console.log('Brickrouge is running, we can do stuff')
 
