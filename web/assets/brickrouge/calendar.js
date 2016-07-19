@@ -121,279 +121,39 @@ Date.prototype.getWeek = function () {
 	return 1 + Math.ceil((firstThursday - target) / 604800000); // 604800000 = 7 * 24 * 3600 * 1000
 }
 */
-/**
- * A calendar.
- *
- * @property editors Object The date editors array.
- * @property element Element The element used to display the calendar.
- * @property month Brickrouge.Calendar.Month The object used to display a month of the calendar.
- * @property monthName Element|null The element used to display the name of the month.
- * @property yearName Element|null The element used to display the name of the year.
- */
-Brickrouge.Calendar = new Class({
-
-	Implements: [ Options, Events ],
-
-	options: {
-
-		date: null,
-		noWeekNumber: false
-
-	},
-
-	initialize: function(el, options)
-	{
-		this.element = document.id(el)
-		this.setOptions(options)
-
-		this.element.addEvents({
-
-			'click:relay([data-decrement])': function(ev, el) {
-
-				this.decrement(el.get('data-decrement'), el.get('data-decrement-amount') || 1)
-
-			}.bind(this),
-
-			'click:relay([data-increment])': function(ev, el) {
-
-				this.increment(el.get('data-increment'), el.get('data-increment-amount') || 1)
-
-			}.bind(this),
-
-			'click:relay([data-edit])': function(ev, el) {
-
-				this.edit(el.get('data-edit'), this.month.date, el)
-
-			}.bind(this),
-
-			keypress: this.onKeyPress.bind(this)
-		})
-
-		this.editors = {}
-		this.monthName = this.element.getElement('.month .name')
-		this.yearName = this.element.getElement('.year .name')
-		this.month = this.createMonth(this.element.getElement('tbody'), {
-
-			noWeekNumber: this.options.noWeekNumber
-
-		})
-
-		this.month.observe('update', function (date) {
-
-			this.renderMonthName(date)
-			this.renderYearName(date)
-			this.fireUpdate(date)
-
-		}.bind(this))
-
-		this.month.observe('change', function (date) {
-
-			this.renderMonthName(date)
-			this.renderYearName(date)
-			this.fireChange(date)
-
-		}.bind(this))
-
-		this.setDate(this.options.date || 'now')
-	},
-
-	createMonth: function(el, options)
-	{
-		return new Brickrouge.Calendar.Month(el, options)
-	},
-
-	setDate: function(date)
-	{
-		this.render(date instanceof Date ? date : Date.from(date))
-	},
-
-	onKeyPress: function(ev)
-	{
-		if (ev.key == 'e')
-		{
-			ev.stop()
-
-			this.edit('my', this.month.date, this.element.getElement('caption') || this.element)
-		}
-	},
-
-	fireUpdate: function()
-	{
-		this.fireEvent('update', arguments)
-	},
-
-	fireChange: function()
-	{
-		this.fireEvent('change', arguments)
-	},
-
-	increment: function(what, amount)
-	{
-		this.render(new Date(this.month.date).increment(what, amount))
-	},
-
-	decrement: function(what, amount)
-	{
-		this.render(new Date(this.month.date).decrement(what, amount))
-	},
-
-	edit: function(type, date, anchor)
-	{
-		var editor = this.getEditor(type)
-
-		editor.setDate(date)
-		editor.attachAnchor(anchor)
-		editor.show()
-		editor.focus()
-	},
-
-	getEditor: function(type)
-	{
-		if (this.editors[type]) return this.editors[type]
-
-		var editor = new Brickrouge.Calendar.Editor({
-
-			type: type
-
-		})
-
-		editor.addEvent('action', function(action, params) {
-
-			if (action == 'ok')
-			{
-				var date = Date.from(this.month.date)
-
-				if (params.year)
-				{
-					date.setFullYear(params.year)
-				}
-
-				if (params.month)
-				{
-					date.setMonth(params.month - 1)
-				}
-
-				if (params.day)
-				{
-					date.setDate(params.day)
-				}
-
-				editor.hide()
-				this.render(date)
-				this.focus()
-			}
-			else if (action == 'cancel')
-			{
-				editor.hide()
-				this.focus()
-			}
-
-		}.bind(this))
-
-		return this.editors[type] = editor
-	},
-
-	render: function(date)
-	{
-		this.month.setDate(date)
-		this.renderMonthName(date)
-		this.renderYearName(date)
-	},
-
-	renderMonthName: function(date)
-	{
-		if (!this.monthName) return
-
-		var month = Locale.get('Calendar.standalone_months') || Locale.get('Date.months')
-
-		this.monthName.innerHTML = month[date.getMonth()]
-	},
-
-	renderYearName: function(date)
-	{
-		if (!this.yearName) return
-
-		this.yearName.innerHTML = date.getFullYear()
-	},
-
-	focus: function()
-	{
-		this.element.querySelector('[tabindex]').focus()
-	}
-})
 
 /**
- * Creates a calendar element according to options:
- *
- * - caption: A `caption` element or one of the following special values: '+ym',
- * 'ym'.
- * - noDayNames: The day names element is not created.
- * - noWeekNumber: The elements use to display the week number are not created.
+ * CalendarMonth
  */
-Brickrouge.Calendar.from = function(options)
-{
-	var el = new Element('table.calendar[role="grid"][aria-labelledby="month"]')
-	, caption = null
-	, head = null
-	, headRow
-	, body
-	, weekdays = /*Locale.get('Calendar.standalone_narrow_days') || Locale.get('Date.days') ||*/ [ 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su' ]
+!function (Brickrouge, Subject) {
 
-//	if (options.caption)
-	{
-		/*
-		if (options.caption[0] == '+')
-		{
+	/**
+	 * @param {Date} date
+	 *
+	 * @event Brickrouge.Calendar#update
+	 * @property {Date} date
+	 * @property {Element} element
+	 */
+	const UpdateEvent = Subject.createEvent(function (date, element) {
 
-		}
-		else
-		{
+		this.date = date
+		this.element = element
 
-		}
-		*/
+	})
 
-		caption = new Element('caption', {
+	/**
+	 * @param {Date} date
+	 *
+	 * @event Brickrouge.Calendar#create
+	 * @property {Date} date
+	 * @property {Element} element
+	 */
+	const ChangeEvent = Subject.createEvent(function (date, element) {
 
-			html: '<span class="date">'
-			+ '<span class="browse prev" data-decrement="month">←</span>'
-			+ '<span class="name" data-edit="my">'
-			+ '<span class="month"><span class="name">&nbsp;</span></span>'
-			+ '<span class="year"><span class="name">&nbsp;</span></span>'
-			+ '</span>'
-			+ '<span class="browse next" data-increment="month">→</span>'
-			+ '</span>'
-		})
-	}
+		this.date = date
+		this.element = element
 
-	if (!options.noDayNames)
-	{
-		headRow = new Element('tr.calendar-weekdays')
-
-		if (!options.noWeekNumber)
-		{
-			headRow.adopt(new Element('th.calendar-weekcount', { html: Locale.get('Calendar.weeknumber') || 'W' }))
-		}
-
-		weekdays.each(function(name) {
-
-			headRow.adopt(new Element('th.calendar-weekday', { html: name }))
-
-		})
-
-		head = new Element('thead').adopt(headRow)
-	}
-
-	body = new Element('tbody.calendar-month[tabindex="0"]')
-
-	el.adopt([ caption, head, body ])
-
-	return new Brickrouge.Calendar(el, options)
-}
-
-!function (Brickrouge) {
-
-	const NOTIFY_UPDATE = 'update'
-	const NOTIFY_CHANGE = 'change'
+	})
 
 	/**
 	 * A calendar month.
@@ -403,9 +163,9 @@ Brickrouge.Calendar.from = function(options)
 	 * @property now Date Current date at the initialization of the object.
 	 * @property options
 	 */
-	Brickrouge.Calendar.Month = new Class({
+	let Month = new Class({
 
-		Implements: [ Options, Brickrouge.Subject ],
+		Implements: [ Options, Subject ],
 
 		options: {
 
@@ -449,7 +209,7 @@ Brickrouge.Calendar.from = function(options)
 					if (!this.options.dontFollowOverlap && el.classList.contains('overlap'))
 					{
 						this.setDate(el.getAttribute('data-date'))
-						this.fireUpdate(this.date, el)
+						this.notifyUpdate(this.date)
 
 						return
 					}
@@ -457,7 +217,7 @@ Brickrouge.Calendar.from = function(options)
 					if (!this.options.noInput && !el.classList.contains('disabled'))
 					{
 						this.setDate(el.getAttribute('data-date'))
-						this.fireChange(this.date, el)
+						this.notifyChange(this.date)
 					}
 
 				}.bind(this),
@@ -509,7 +269,7 @@ Brickrouge.Calendar.from = function(options)
 			{
 				ev.stop()
 				this.setDate(date)
-				this.fireUpdate(this.date)
+				this.notifyUpdate(this.date)
 			}
 		},
 
@@ -528,7 +288,7 @@ Brickrouge.Calendar.from = function(options)
 					break
 				case 'enter':
 				case 'space':
-					this.fireChange(this.date)
+					this.notifyChange(this.date)
 					break
 			}
 
@@ -536,7 +296,7 @@ Brickrouge.Calendar.from = function(options)
 			{
 				ev.stop()
 				this.setDate(date)
-				this.fireUpdate(this.date)
+				this.notifyUpdate(this.date)
 			}
 		},
 
@@ -544,20 +304,24 @@ Brickrouge.Calendar.from = function(options)
 		 * Fires `NOTIFY_UPDATE` with the specified arguments.
 		 *
 		 * @protected
+		 *
+		 * @param {Date} date
 		 */
-		fireUpdate: function()
+		notifyUpdate: function(date)
 		{
-			this.notify(NOTIFY_UPDATE, arguments)
+			this.notify(new UpdateEvent(date))
 		},
 
 		/**
 		 * Fires `NOTIFY_CHANGE` with the specified arguments.
 		 *
 		 * @protected
+		 *
+		 * @param {Date} date
 		 */
-		fireChange: function()
+		notifyChange: function(date)
 		{
-			this.notify(NOTIFY_CHANGE, arguments)
+			this.notify(new ChangeEvent(date))
 		},
 
 		setDate: function(date)
@@ -654,382 +418,761 @@ Brickrouge.Calendar.from = function(options)
 		}
 	})
 
-	Brickrouge.Calendar.Month.NOTIFY_CHANGE = NOTIFY_CHANGE
-	Brickrouge.Calendar.Month.NOTIFY_UPDATE = NOTIFY_UPDATE
+	Object.defineProperties(Month, {
 
-} (Brickrouge)
+		EVENT_CHANGE: { value: ChangeEvent },
+		EVENT_UPDATE: { value: UpdateEvent }
+
+	})
+
+	return Brickrouge.CalendarMonth = Month
+
+} (Brickrouge, Brickrouge.Subject)
 
 /**
- * A date editor.
- *
- * The editor can be configured to edit a year, a month or a date (year, month, day).
- *
- * @property yearControl Element The input element used to edit the year.
- * @property monthControl Element The input element used to edit the month.
- * @property dayControl Element The input element used to edit the day.
- * @property popover Brickrouge.Popover The popover which contains the editor.
+ * Brickrouge.CalendarEditor
  */
-Brickrouge.Calendar.Editor = new Class({
+!function (Brickrouge, Subject, Popover) {
 
-	Implements: [ Options, Events ],
+	const ACTION_OK = 'ok'
+	const ACTION_CANCEL = 'cancel'
 
-	options: {
+	/**
+	 * @param {Date} date
+	 *
+	 * @event Brickrouge.Calendar#update
+	 * @property {string} action
+	 * @property {object} payload
+	 */
+	const ActionEvent = Subject.createEvent(function (action, payload) {
 
-		type: 'my',
-		date: null
+		this.action = action
+		this.payload = payload
 
-	},
+	})
 
-	initialize: function(options)
-	{
-		this.setOptions(options)
+	/**
+	 * A date editor.
+	 *
+	 * The editor can be configured to edit a year, a month or a date (year, month, day).
+	 *
+	 * @property yearControl Element The input element used to edit the year.
+	 * @property monthControl Element The input element used to edit the month.
+	 * @property dayControl Element The input element used to edit the day.
+	 * @property popover Brickrouge.Popover The popover which contains the editor.
+	 */
+	let Editor = new Class({
 
-		this.yearControl = null
-		this.monthControl = null
-		this.dayControl = null
+		Implements: [ Options, Subject ],
 
-		var type = this.options.type
-		, controls = []
-		, content = []
-		, control = null
-		, i = 0
-		, y
+		options: {
 
-		if (type == 'year')
+			type: 'my',
+			date: null
+
+		},
+
+		initialize: function(options)
 		{
-			type = 'y'
-		}
-		else if (type == 'month')
-		{
-			type = 'm'
-		}
-		else if (type == 'date')
-		{
-			type = 'ymd'
-		}
+			this.setOptions(options)
 
-		for (y = type.length ; i < y ; i++)
-		{
-			switch (type[i])
+			this.yearControl = null
+			this.monthControl = null
+			this.dayControl = null
+
+			var type = this.options.type
+				, controls = []
+				, content = []
+				, control = null
+				, i = 0
+				, y
+
+			if (type == 'year')
 			{
-				case 'y':
-					this.yearControl = control = new Element('input[type="text"][size="4"][name="year"].form-control')
-					break
-				case 'm':
-					this.monthControl = control = new Element('input[type="text"][size="4"][name="month"].form-control')
-					break
-				case 'd':
-					this.dayControl = control = new Element('input[type="text"][size="4"][name="day"]')
-					break
+				type = 'y'
+			}
+			else if (type == 'month')
+			{
+				type = 'm'
+			}
+			else if (type == 'date')
+			{
+				type = 'ymd'
 			}
 
-			control.addEvent('keypress', function(ev) {
+			for (y = type.length ; i < y ; i++)
+			{
+				switch (type[i])
+				{
+					case 'y':
+						this.yearControl = control = new Element('input[type="text"][size="4"][name="year"].form-control')
+						break
+					case 'm':
+						this.monthControl = control = new Element('input[type="text"][size="4"][name="month"].form-control')
+						break
+					case 'd':
+						this.dayControl = control = new Element('input[type="text"][size="4"][name="day"]')
+						break
+				}
 
-				if (ev.key == 'enter')
+				control.addEvent('keypress', function(ev) {
+
+					if (ev.key == 'enter')
+					{
+						this.ok()
+					}
+					else if (ev.key == 'esc')
+					{
+						this.cancel()
+					}
+
+				}.bind(this))
+
+				controls.push(control)
+				content.push(control)
+				content.push(new Element('span.separator', { html: ' &ndash; ' }))
+			}
+
+			content.pop()
+
+			if (this.options.date)
+			{
+				this.setDate(this.options.date)
+			}
+
+			this.popover = Popover.from({
+
+				actions: 'boolean',
+				content: content,
+				placement: 'below'
+
+			})
+
+			this.popover.element.classList.add('calendar-editor')
+
+			this.popover.observe(Popover.EVENT_ACTION, function(ev) {
+
+				if (ev.action == ACTION_OK)
 				{
 					this.ok()
 				}
-				else if (ev.key == 'esc')
+				else if (ev.action == ACTION_CANCEL)
 				{
 					this.cancel()
 				}
 
 			}.bind(this))
+		},
 
-			controls.push(control)
-			content.push(control)
-			content.push(new Element('span.separator', { html: ' &ndash; ' }))
-		}
-
-		content.pop()
-
-		if (this.options.date)
+		setDate: function(date)
 		{
-			this.setDate(this.options.date)
-		}
-
-		this.popover = Brickrouge.Popover.from({
-
-			actions: 'boolean',
-			content: content,
-			placement: 'below'
-
-		})
-
-		this.popover.element.addClass('calendar-editor')
-
-		this.popover.addEvent('action', function(ev) {
-
-			if (ev.action == 'ok')
+			if (this.yearControl)
 			{
-				this.ok()
-			}
-			else if (ev.action == 'cancel')
-			{
-				this.cancel()
+				this.yearControl.value = date.getFullYear()
 			}
 
-		}.bind(this))
-	},
-
-	setDate: function(date)
-	{
-		if (this.yearControl)
-		{
-			this.yearControl.set('value', date.getFullYear())
-		}
-
-		if (this.monthControl)
-		{
-			this.monthControl.set('value', date.getMonth() + 1)
-		}
-
-		if (this.dayControl)
-		{
-			this.dayControl.set('value', date.getDate())
-		}
-	},
-
-	ok: function()
-	{
-		var year = null
-		, month = null
-		, day = null
-
-		if (this.yearControl)
-		{
-			year = this.yearControl.get('value')
-		}
-
-		if (this.monthControl)
-		{
-			month = this.monthControl.get('value')
-		}
-
-		if (this.dayControl)
-		{
-			day = this.dayControl.get('value')
-		}
-
-		this.fireAction('ok', { year: year, month: month, day: day })
-	},
-
-	cancel: function()
-	{
-		this.fireAction('cancel')
-	},
-
-	fireAction: function(action, params)
-	{
-		this.fireEvent('action', arguments)
-	},
-
-	attachAnchor: function(anchor) {
-
-		this.popover.attachAnchor(anchor)
-	},
-
-	show: function()
-	{
-		this.popover.show()
-	},
-
-	hide: function()
-	{
-		this.popover.hide()
-	},
-
-	focus: function()
-	{
-		var control = this.yearControl || this.monthControl || this.dayControl
-
-		if (!control) return
-
-		control.focus()
-	}
-})
-
-Brickrouge.Datepicker = new Class({
-
-	Implements: [ Options ],
-
-	options: {
-
-		anchor: null
-
-	},
-
-	initialize: function(options)
-	{
-		this.setOptions(options)
-
-		var skipFocus = false
-		, anchor = this.anchor = document.id(this.options.anchor)
-		, calendar = this.calendar = Brickrouge.Calendar.from(options)
-		, popover = this.popover = Brickrouge.Popover.from({
-
-			anchor: anchor,
-			content: calendar.element,
-			loveContent: true
-
-		})
-
-		popover.element.classList.add('datepicker')
-
-		calendar.addEvent('change', function(date) {
-
-			var anchor = this.anchor
-
-			if (anchor.tagName == 'INPUT')
+			if (this.monthControl)
 			{
-				anchor.set('value', date.format('%Y-%m-%d'))
+				this.monthControl.value = date.getMonth() + 1
 			}
 
-			skipFocus = true
-			this.anchor.focus()
-			this.hide()
+			if (this.dayControl)
+			{
+				this.dayControl.value = date.getDate()
+			}
+		},
 
-		}.bind(this))
-
-		if (anchor)
+		ok: function()
 		{
-			popover.element.addEvent('click', function(ev) {
+			var year = null
+			var month = null
+			var day = null
 
-				ev.stop()
-				anchor.focus()
+			if (this.yearControl)
+			{
+				year = this.yearControl.value
+			}
+
+			if (this.monthControl)
+			{
+				month = this.monthControl.value
+			}
+
+			if (this.dayControl)
+			{
+				day = this.dayControl.value
+			}
+
+			this.notifyAction(ACTION_OK, { year: year, month: month, day: day })
+		},
+
+		cancel: function()
+		{
+			this.notifyAction(ACTION_CANCEL)
+		},
+
+		notifyAction: function(action, payload)
+		{
+			this.notify(new ActionEvent(action, payload))
+		},
+
+		attachAnchor: function(anchor) {
+
+			this.popover.attachAnchor(anchor)
+		},
+
+		show: function()
+		{
+			this.popover.show()
+		},
+
+		hide: function()
+		{
+			this.popover.hide()
+		},
+
+		focus: function()
+		{
+			var control = this.yearControl || this.monthControl || this.dayControl
+
+			if (!control) return
+
+			control.focus()
+		}
+	})
+
+	Object.defineProperties(Editor, {
+
+		ACTION_OK:     { value: ACTION_OK },
+		ACTION_CANCEL: { value: ACTION_CANCEL },
+		EVENT_ACTION:  { value: ActionEvent }
+
+	})
+
+	return Brickrouge.CalendarEditor = Editor
+
+} (Brickrouge, Brickrouge.Subject, Brickrouge.Popover)
+
+/**
+ * Brickrouge.Calendar
+ */
+!function (Brickrouge, Month, Editor) {
+
+	/**
+	 * @param {Date} date
+	 *
+	 * @event Brickrouge.Calendar#update
+	 * @property {Date} date
+	 */
+	const UpdateEvent = Brickrouge.Subject.createEvent(function (date) {
+
+		this.date = date
+
+	})
+
+	/**
+	 * @param {Date} date
+	 *
+	 * @event Brickrouge.Calendar#create
+	 * @property {Date} date
+	 */
+	const ChangeEvent = Brickrouge.Subject.createEvent(function (date) {
+
+		this.date = date
+
+	})
+
+	/**
+	 * A calendar.
+	 *
+	 * @property editors Object The date editors array.
+	 * @property element Element The element used to display the calendar.
+	 * @property month Month The object used to display a month of the calendar.
+	 * @property monthName Element|null The element used to display the name of the month.
+	 * @property yearName Element|null The element used to display the name of the year.
+	 */
+	let Calendar = new Class({
+
+		Implements: [ Options, Brickrouge.Subject ],
+
+		options: {
+
+			date: null,
+			noWeekNumber: false
+
+		},
+
+		initialize: function(el, options)
+		{
+			this.element = document.id(el)
+			this.setOptions(options)
+
+			this.element.addEvents({
+
+				'click:relay([data-decrement])': function(ev, el) {
+
+					this.decrement(el.get('data-decrement'), el.get('data-decrement-amount') || 1)
+
+				}.bind(this),
+
+				'click:relay([data-increment])': function(ev, el) {
+
+					this.increment(el.get('data-increment'), el.get('data-increment-amount') || 1)
+
+				}.bind(this),
+
+				'click:relay([data-edit])': function(ev, el) {
+
+					this.edit(el.get('data-edit'), this.month.date, el)
+
+				}.bind(this),
+
+				keypress: this.onKeyPress.bind(this)
+			})
+
+			this.editors = {}
+			this.monthName = this.element.querySelector('.month .name')
+			this.yearName = this.element.querySelector('.year .name')
+			this.month = this.createMonth(this.element.querySelector('tbody'), {
+
+				noWeekNumber: this.options.noWeekNumber
 
 			})
 
-			anchor.addEvents({
+			this.month.observe(Month.EVENT_UPDATE, function (ev) {
 
-				click: function(ev) {
+				let date = ev.date
+
+				this.renderMonthName(date)
+				this.renderYearName(date)
+				this.notifyUpdate(date)
+
+			}.bind(this))
+
+			this.month.observe(Month.EVENT_CHANGE, function (ev) {
+
+				let date = ev.date
+
+				this.renderMonthName(date)
+				this.renderYearName(date)
+				this.notifyChange(date)
+
+			}.bind(this))
+
+			this.setDate(this.options.date || 'now')
+		},
+
+		createMonth: function(el, options)
+		{
+			return new Month(el, options)
+		},
+
+		setDate: function(date)
+		{
+			this.render(date instanceof Date ? date : Date.from(date))
+		},
+
+		onKeyPress: function(ev)
+		{
+			if (ev.key == 'e')
+			{
+				ev.stop()
+
+				this.edit('my', this.month.date, this.element.querySelector('caption') || this.element)
+			}
+		},
+
+		notifyUpdate: function(date)
+		{
+			this.notify(new UpdateEvent(date))
+		},
+
+		notifyChange: function(date)
+		{
+			this.notify(new ChangeEvent(date))
+		},
+
+		increment: function(what, amount)
+		{
+			this.render(new Date(this.month.date).increment(what, amount))
+		},
+
+		decrement: function(what, amount)
+		{
+			this.render(new Date(this.month.date).decrement(what, amount))
+		},
+
+		edit: function(type, date, anchor)
+		{
+			const editor = this.getEditor(type)
+
+			editor.setDate(date)
+			editor.attachAnchor(anchor)
+			editor.show()
+			editor.focus()
+		},
+
+		getEditor: function(type)
+		{
+			if (this.editors[type]) return this.editors[type]
+
+			var editor = new Editor({
+
+				type: type
+
+			})
+
+			editor.observe(Editor.EVENT_ACTION, function(ev) {
+
+				let action = ev.action
+				let params = ev.payload
+
+				if (action == Editor.ACTION_OK)
+				{
+					var date = Date.from(this.month.date)
+
+					if (params.year)
+					{
+						date.setFullYear(params.year)
+					}
+
+					if (params.month)
+					{
+						date.setMonth(params.month - 1)
+					}
+
+					if (params.day)
+					{
+						date.setDate(params.day)
+					}
+
+					editor.hide()
+					this.render(date)
+					this.focus()
+				}
+				else if (action == Editor.ACTION_CANCEL)
+				{
+					editor.hide()
+					this.focus()
+				}
+
+			}.bind(this))
+
+			return this.editors[type] = editor
+		},
+
+		render: function(date)
+		{
+			this.month.setDate(date)
+			this.renderMonthName(date)
+			this.renderYearName(date)
+		},
+
+		renderMonthName: function(date)
+		{
+			if (!this.monthName) return
+
+			var month = Locale.get('Calendar.standalone_months') || Locale.get('Date.months')
+
+			this.monthName.innerHTML = month[date.getMonth()]
+		},
+
+		renderYearName: function(date)
+		{
+			if (!this.yearName) return
+
+			this.yearName.innerHTML = date.getFullYear()
+		},
+
+		focus: function()
+		{
+			this.element.querySelector('[tabindex]').focus()
+		}
+	})
+
+	Object.defineProperties(Calendar, {
+
+		EVENT_UPDATE: { value: UpdateEvent },
+		EVENT_CHANGE: { value: ChangeEvent },
+
+		from:         { value: from }
+
+	})
+
+	/**
+	 * Creates a calendar element according to options:
+	 *
+	 * - caption: A `caption` element or one of the following special values: '+ym',
+	 * 'ym'.
+	 * - noDayNames: The day names element is not created.
+	 * - noWeekNumber: The elements use to display the week number are not created.
+	 */
+	function from(options)
+	{
+		var el = new Element('table.calendar[role="grid"][aria-labelledby="month"]')
+		, caption = null
+		, head = null
+		, headRow
+		, body
+		, weekdays = /*Locale.get('Calendar.standalone_narrow_days') || Locale.get('Date.days') ||*/ [ 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su' ]
+
+		//	if (options.caption)
+		{
+			/*
+			if (options.caption[0] == '+')
+			{
+
+			}
+			else
+			{
+
+			}
+			*/
+
+			caption = new Element('caption', {
+
+				html: '<span class="date">'
+				+ '<span class="browse prev" data-decrement="month">←</span>'
+				+ '<span class="name" data-edit="my">'
+				+ '<span class="month"><span class="name">&nbsp;</span></span>'
+				+ '<span class="year"><span class="name">&nbsp;</span></span>'
+				+ '</span>'
+				+ '<span class="browse next" data-increment="month">→</span>'
+				+ '</span>'
+			})
+		}
+
+		if (!options.noDayNames)
+		{
+			headRow = new Element('tr.calendar-weekdays')
+
+			if (!options.noWeekNumber)
+			{
+				headRow.adopt(new Element('th.calendar-weekcount', { html: Locale.get('Calendar.weeknumber') || 'W' }))
+			}
+
+			weekdays.each(function(name) {
+
+				headRow.adopt(new Element('th.calendar-weekday', { html: name }))
+
+			})
+
+			head = new Element('thead').adopt(headRow)
+		}
+
+		body = new Element('tbody.calendar-month[tabindex="0"]')
+
+		el.adopt([ caption, head, body ])
+
+		return new Calendar(el, options)
+	}
+
+	return Brickrouge.Calendar = Calendar
+
+} (Brickrouge, Brickrouge.CalendarMonth, Brickrouge.CalendarEditor)
+
+/*
+ * DatePicker
+ */
+
+!function (Brickrouge, Calendar, Popover) {
+
+	let Datepicker = new Class({
+
+		Implements: [ Options ],
+
+		options: {
+
+			anchor: null
+
+		},
+
+		initialize: function(options)
+		{
+			this.setOptions(options)
+
+			var skipFocus = false
+			, anchor = this.anchor = document.id(this.options.anchor)
+			, calendar = this.calendar = Brickrouge.Calendar.from(options)
+			, popover = this.popover = Brickrouge.Popover.from({
+
+				anchor: anchor,
+				content: calendar.element,
+				loveContent: true
+
+			})
+
+			popover.element.classList.add('datepicker')
+
+			calendar.observe(Calendar.EVENT_CHANGE, function(ev) {
+
+				var anchor = this.anchor
+
+				if (anchor.tagName == 'INPUT')
+				{
+					anchor.set('value', ev.date.format('%Y-%m-%d'))
+				}
+
+				skipFocus = true
+				this.anchor.focus()
+				this.hide()
+
+			}.bind(this))
+
+			if (anchor)
+			{
+				popover.element.addEvent('click', function(ev) {
 
 					ev.stop()
-					this.show()
+					anchor.focus()
 
-				}.bind(this),
+				})
 
-				focus: function(ev) {
+				anchor.addEvents({
 
-					if (skipFocus)
-					{
-						skipFocus = false
-						return
-					}
+					click: function(ev) {
 
-					this.show()
+						ev.stop()
+						this.show()
 
-				}.bind(this),
+					}.bind(this),
 
-				keydown: function(ev)
-				{
-					if (ev.key == 'tab')
-					{
-						this.hide()
-					}
-					else if (this.popover.isVisible())
-					{
-						this.calendar.month.onKeyDown(ev)
-					}
+					focus: function(ev) {
 
-				}.bind(this),
-
-				keypress: function(ev)
-				{
-					if (this.popover.isVisible())
-					{
-						if (ev.key == 'esc')
+						if (skipFocus)
 						{
-							this.hide()
+							skipFocus = false
 							return
 						}
 
-						this.calendar.month.onKeyPress(ev)
-						this.calendar.onKeyPress(ev)
-					}
-					else if (ev.key == 'enter')
-					{
-						ev.stop()
 						this.show()
-					}
 
-				}.bind(this)
+					}.bind(this),
+
+					keydown: function(ev)
+					{
+						if (ev.key == 'tab')
+						{
+							this.hide()
+						}
+						else if (this.popover.isVisible())
+						{
+							this.calendar.month.onKeyDown(ev)
+						}
+
+					}.bind(this),
+
+					keypress: function(ev)
+					{
+						if (this.popover.isVisible())
+						{
+							if (ev.key == 'esc')
+							{
+								this.hide()
+								return
+							}
+
+							this.calendar.month.onKeyPress(ev)
+							this.calendar.onKeyPress(ev)
+						}
+						else if (ev.key == 'enter')
+						{
+							ev.stop()
+							this.show()
+						}
+
+					}.bind(this)
+				})
+			}
+		},
+
+		show: function()
+		{
+			if (this.popover.isVisible())
+			{
+				return
+			}
+
+			Brickrouge.Datepicker.closeAll()
+
+			if (this.anchor)
+			{
+				this.calendar.setDate(this.anchor.get('value') || 'now')
+			}
+
+			this.popover.show()
+
+			if (Brickrouge.Datepicker.opened.indexOf(this) == -1)
+			{
+				Brickrouge.Datepicker.opened.push(this)
+			}
+		},
+
+		/**
+		 * Hides the date picker.
+		 *
+		 * The popover is hidden with all the editors of the calendar, and the datepicker is removed
+		 * from the opened datepickers list.
+		 */
+		hide: function()
+		{
+			Object.each(this.calendar.editors, function(editor) {
+
+				editor.hide()
 			})
+
+			this.popover.hide()
+
+			Brickrouge.Datepicker.opened.erase(this)
 		}
-	},
+	})
 
-	show: function()
-	{
-		if (this.popover.isVisible())
-		{
-			return
-		}
+	const opened = []
 
-		Brickrouge.Datepicker.closeAll()
-
-		if (this.anchor)
-		{
-			this.calendar.setDate(this.anchor.get('value') || 'now')
-		}
-
-		this.popover.show()
-
-		if (Brickrouge.Datepicker.opened.indexOf(this) == -1)
-		{
-			Brickrouge.Datepicker.opened.push(this)
-		}
-	},
+	Datepicker.opened = opened
 
 	/**
-	 * Hides the date picker.
-	 *
-	 * The popover is hidden with all the editors of the calendar, and the datepicker is removed
-	 * from the opened datepickers list.
+	 * Closes all opened datepickers.
 	 */
-	hide: function()
+	Datepicker.closeAll = function()
 	{
-		Object.each(this.calendar.editors, function(editor) {
+		opened.forEach(function(datepicker) {
 
-			editor.hide()
+			datepicker.hide()
+
 		})
-
-		this.popover.hide()
-
-		Brickrouge.Datepicker.opened.erase(this)
 	}
-})
 
-Brickrouge.Datepicker.opened = []
+	Brickrouge.Datepicker = Datepicker
 
-/**
- * Closes all opened datepickers.
- */
-Brickrouge.Datepicker.closeAll = function()
-{
-	Brickrouge.Datepicker.opened.forEach(function(datepicker) {
-
-		datepicker.hide()
-
-	})
-}
+} (Brickrouge, Brickrouge.Calendar, Brickrouge.Popover)
 
 /*
- * All opened calendars are closed when a click event occurs outside of a calendar.
+ * Close opened date picker when click is outside of one.
  */
-document.body.addEventListener('click', function(ev) {
+!function (closeAll) {
 
-	var target = ev.target
-	, calendar = target.closest('.calendar')
+	/*
+	 * All opened calendars are closed when a click event occurs outside of a calendar.
+	 */
+	document.body.addEventListener('click', function (ev) {
 
-	if ((calendar && calendar.closest('.popover')) || (target.closest('.calendar-editor'))) return
+		const target = ev.target
+		const calendar = target.closest('.calendar')
 
-	Brickrouge.Datepicker.closeAll()
+		if ((calendar && calendar.closest('.popover'))
+		|| (target.closest('.calendar-editor'))) return
 
-})
+		closeAll()
 
-!function (Brickrouge) {
+	})
 
-	var instances = []
+} (Brickrouge.Datepicker.closeAll)
+
+
+!function (Brickrouge, DatePicker) {
+
+	const instances = []
 
 	/**
 	 * Automatically attach date pickers to elements matching `[data-editor="datepicker"]`
@@ -1039,12 +1182,11 @@ document.body.addEventListener('click', function(ev) {
 	 */
 	document.body.addDelegatedEventListener('[data-editor="datepicker"]', 'focus', function (ev, target) {
 
-		var uid = Brickrouge.uidOf(target)
-		, picker
+		const uid = Brickrouge.uidOf(target)
 
 		if (uid in instances) return
 
-		picker = new Brickrouge.Datepicker(Object.assign({ anchor: target }, Brickrouge.Dataset.from(target)))
+		const picker = new DatePicker(Object.assign({ anchor: target }, Brickrouge.Dataset.from(target)))
 
 		instances[uid] = picker
 
@@ -1052,4 +1194,4 @@ document.body.addEventListener('click', function(ev) {
 
 	}, true)
 
-} (Brickrouge)
+} (Brickrouge, Brickrouge.Datepicker)
