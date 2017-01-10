@@ -11,7 +11,7 @@
 }
 
 .bg-inverse {
-	background-color: #4A1010;
+	background-color: #4A1010 !important;
 	border-bottom: 2px solid #3d0d0d;
 }
 
