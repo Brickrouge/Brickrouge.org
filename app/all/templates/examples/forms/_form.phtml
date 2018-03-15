@@ -92,6 +92,21 @@ $form = new Form([
 
 		]),
 
+		'checkbox-group-inline' => new Element(Element::TYPE_CHECKBOX_GROUP, [
+
+			Group::LABEL => "Checkbox group (inline)",
+			Element::OPTIONS => [
+
+				1 => "Option 1",
+				"Option 2, which should initially be checked",
+				"Option 3"
+
+			],
+
+			'class' => 'inline-check',
+
+		]),
+
 		'radio-group' => new Element(Element::TYPE_RADIO_GROUP, [
 
 			Group::LABEL => "Radio group",
@@ -101,9 +116,24 @@ $form = new Form([
 				"Option 2, which should initially be checked",
 				"Option 3"
 
-			]
+			],
 
-		])
+		]),
+
+		'radio-group-inline' => new Element(Element::TYPE_RADIO_GROUP, [
+
+			Group::LABEL => "Radio group (inline)",
+			Element::OPTIONS => [
+
+				1 => "Option 1",
+				"Option 2, which should initially be checked",
+				"Option 3"
+
+			],
+
+			'class' => "inline-check"
+
+		]),
 
 	],
 

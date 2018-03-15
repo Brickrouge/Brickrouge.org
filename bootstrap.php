@@ -9,14 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace App;
+namespace ICanBoogie;
 
-use function ICanBoogie\boot;
-
-const ROOT = __DIR__ . '/';
-
+define('App\ROOT', __DIR__ . DIRECTORY_SEPARATOR);
 define('Brickrouge\ACCESSIBLE_ASSETS', __DIR__ . '/web/assets/managed');
 
 require __DIR__ . '/vendor/autoload.php';
+
+if (file_exists(__DIR__ . '/../vendor/icanboogie-combined.php'))
+{
+	require __DIR__ . '/vendor/icanboogie-combined.php';
+}
 
 return boot();

@@ -35,6 +35,12 @@ a {
 	color: #D04040;
 }
 
+.navbar a:focus,
+.navbar a:hover,
+.nav-item.active a {
+	color: #fff;
+}
+
 h1 small, h2 small {
 	opacity: .8;
 	font-weight: normal;

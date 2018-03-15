@@ -1,20 +1,25 @@
 {
 	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"require": {
-		"icanboogie/icanboogie": "^3.0",
-		"icanboogie/bind-view": "^0.8",
-		"icanboogie/validate": "dev-master",
-		"icanboogie/render-engine-markdown": "dev-master",
+		"php": "^5.6 || ^7.0",
+		"icanboogie/icanboogie": "^4.0",
+		"icanboogie/bind-view": "^0.9",
+		"icanboogie/validate": "^0.2",
+		"icanboogie/render-engine-markdown": "^0.2",
 		"brickrouge/brickrouge": "^3.0",
 		"brickrouge/bind-icanboogie-validate": "dev-master",
 		"erusev/parsedown": "^1.6"
 	},
 	"autoload": {
 		"psr-4": {
-			"App\\": "protected/all/lib"
+			"App\\": "lib"
 		},
+		"classmap": [
+			"Application.php"
+		],
 		"files": [
-			"protected/all/helpers.php"
+			"app/helpers.php"
 		]
 	},
 	"scripts": {

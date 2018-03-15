@@ -13,9 +13,18 @@ autoload: vendor
 test: vendor
 	@phpunit
 
-server:
+run:
 	@cd web && \
 	ICANBOOGIE_INSTANCE=$(ICANBOOGIE_INSTANCE) php -S localhost:$(SERVER_PORT) index.php
+
+optimize: vendor
+	@composer dump-autoload -oa
+	@ICANBOOGIE_INSTANCE=$(ICANBOOGIE_INSTANCE) icanboogie optimize
+
+unoptimize: vendor
+	@composer dump-autoload
+	@rm -f vendor/icanboogie-combined.php
+	@ICANBOOGIE_INSTANCE=$(ICANBOOGIE_INSTANCE) icanboogie clear cache
 
 doc:
 	@mkdir -p docs
@@ -29,4 +38,7 @@ doc:
 reset: cache-clear
 	@rm -Rf ./vendor
 
-.PHONY: vendor
+clear-cache:
+	@ICANBOOGIE_INSTANCE=$(ICANBOOGIE_INSTANCE) icanboogie clear cache
+
+.PHONY: vendor optimize unoptimize

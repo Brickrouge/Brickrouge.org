@@ -172,8 +172,7 @@ Date.prototype.getWeek = function () {
 		 *
 		 * @param {Element} el If the container element is a `TABLE` its `TBODY` element is used
 		 * instead.
-		 *
-		 * @param options
+		 * @param {DEFAULT_OPTIONS} options
 		 */
 		constructor(el, options)
 		{

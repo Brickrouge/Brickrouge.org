@@ -283,7 +283,6 @@ EOT
     </span>
 </caption>
 EOT
-
 				)
 
 	?></code></pre>
@@ -381,8 +380,8 @@ EOT
 
 		!function (Month) {
 
-			var monthDebug = document.getElementById('standalone-calendar-month-debug')
-			var month = new Month(document.getElementById('standalone-calendar-month'), { noWeekNumber: true })
+			const monthDebug = document.getElementById('standalone-calendar-month-debug')
+			const month = new Month(document.getElementById('standalone-calendar-month'), { noWeekNumber: true })
 
 			month.observeUpdate(ev => {
 
@@ -406,7 +405,7 @@ EOT
 
 		/* calendar-placeholder */
 
-		var calendar = Brickrouge.Calendar.from({ noWeekNumber: true, noDayNames: true })
+		const calendar = Brickrouge.Calendar.from({ noWeekNumber: true, noDayNames: true })
 
 		calendar.element.inject('calendar-placeholder')
 

@@ -21,25 +21,6 @@ function resolve_filename($filename)
 	}
 
 	return $resolved;
-
-	$trace = debug_backtrace();
-
-	foreach ($trace as $point)
-	{
-		if (empty($point['file']) || $point['file'] == __FILE__)
-		{
-			continue;
-		}
-
-		$pathname = dirname($point['file']) . DIRECTORY_SEPARATOR . $filename . '.php';
-
-		if (file_exists($pathname))
-		{
-			return $pathname;
-		}
-	}
-
-	return \App\ROOT . $filename;
 }
 
 function display_source($filename)

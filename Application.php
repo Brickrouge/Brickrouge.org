@@ -9,16 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace App;
-
-use ICanBoogie\Core;
-use ICanBoogie\Binding\Routing\CoreBindings as RoutingBindings;
-use ICanBoogie\Binding\Render\CoreBindings as RenderBindings;
+namespace ICanBoogie;
 
 /**
  * Application class.
  */
-class Application extends Core
+class Application extends ApplicationAbstract
 {
-	use RoutingBindings, RenderBindings;
+	use Binding\Routing\ApplicationBindings;
+	use Binding\Render\ApplicationBindings;
 }
